@@ -4,199 +4,480 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Noah Brosseau — Coaching triathlon</title>
-<meta name="description" content="Coaching triathlon en Estrie, fondé sur la kinésiologie. Plans flexibles, suivi 1 à 1, appel découverte gratuit.">
+<meta name="description" content="Coaching triathlon en Estrie et partout au Québec, bâti par un kinésiologue triathlète. Plans flexibles, suivi 1 à 1, réponse en 24 h.">
 <meta property="og:title" content="Noah Brosseau — Coaching triathlon">
-<meta property="og:description" content="Coaching triathlon en Estrie, fondé sur la kinésiologie. Plans flexibles, suivi 1 à 1, appel découverte gratuit.">
+<meta property="og:description" content="Nage. Roule. Cours. Avec intention. Coaching triathlon fondé sur la kinésiologie.">
 <meta name="theme-color" content="#161513">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23161513%22/%3E%3Ctext x=%2232%22 y=%2244%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-size=%2234%22 fill=%22%23F4ECDC%22%3EN%3Ctspan fill=%22%23E2C275%22%3Eb%3C/tspan%3E%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#161513}
-a{color:#F4ECDC}a:hover{color:#F3DFA2}
+/* Heure dorée — charbon domine, crème se lit, beurre se clique, or se remarque */
+:root{
+  --ink:#161513; --ink2:#201E1B; --line:#2E2B26; --line2:#433E35;
+  --cream:#F4ECDC; --muted:#B5AC98; --dim:#857C6A;
+  --butter:#F3DFA2; --gold:#E2C275; --bronze:#5B5340; --ember:#C8763A;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--cream)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:24px}
+.page{background:radial-gradient(1100px 680px at 82% 0%, rgba(226,150,74,.30) 0%, rgba(150,104,52,.14) 38%, rgba(22,21,19,0) 70%), var(--ink)}
+.eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(40px,5.4vw,80px);line-height:1}
+h3{font-weight:400;font-size:28px;line-height:1.1}
+em{font-style:italic;color:var(--gold)}
+p{margin:0}
+.lead{font-size:19px;color:#D9D0BC;max-width:560px}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 30px;border-radius:999px;font:600 14px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .15s ease, background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--butter);color:var(--ink)}
+.btn-primary:hover{background:#F7E7B8}
+.btn-ghost{border-color:var(--line2);color:var(--cream)}
+.btn-ghost:hover{border-color:var(--cream)}
+section{scroll-margin-top:24px}
+
+/* nav */
+.nav{display:flex;flex-wrap:wrap;gap:16px 28px;justify-content:space-between;align-items:center;padding-block:28px}
+.brand{font-family:var(--serif);font-size:20px;letter-spacing:.32em;text-decoration:none}
+.nav-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px 26px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.nav-links a{text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--cream)}
+.nav-links .nav-cta{color:var(--ink);background:var(--butter);padding:10px 18px;border-radius:999px}
+.nav-links .nav-cta:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding-block:72px 64px;display:flex;flex-direction:column;gap:40px}
+.hero h1{font-size:clamp(60px,10vw,156px);line-height:.93;letter-spacing:-.025em}
+.hero-row{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end;justify-content:space-between}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:1px solid var(--line2);margin-top:8px}
+.proof div{padding:22px 20px 0 0}
+.proof b{display:block;font-family:var(--serif);font-weight:400;font-size:21px}
+.proof span{font-size:13px;color:var(--dim)}
+
+/* distances */
+.dist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));border-block:1px solid var(--line2);margin-top:56px}
+.dist div{padding:36px 24px 36px 0}
+.dist div + div{border-left:1px solid var(--line);padding-left:24px}
+.dist small{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.dist strong{font-family:var(--serif);font-weight:300;font-size:clamp(52px,6vw,96px);line-height:1}
+.dist strong span{font-size:.38em;color:var(--muted)}
+.dist-cap{padding-top:14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+
+/* manifesto */
+.manifesto{padding-block:150px 110px}
+.manifesto p{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.2vw,58px);line-height:1.16;max-width:1060px}
+
+/* method */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line);margin-top:56px}
+.pillars article{background:var(--ink);padding:44px 28px 44px 0;display:flex;flex-direction:column;gap:16px}
+.pillars article + article{padding-left:28px}
+.pillars .n{font-family:var(--serif);color:var(--gold);font-size:15px}
+.week-head{display:flex;flex-wrap:wrap;gap:16px 48px;justify-content:space-between;align-items:flex-end;margin-top:110px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:36px}
+.day{background:var(--ink2);border:1px solid var(--line);border-radius:6px;padding:16px 14px;display:flex;flex-direction:column;gap:10px;min-height:190px;min-width:0}
+.day .d{font-size:11px;letter-spacing:.2em;color:var(--dim)}
+.day .s{font-family:var(--serif);font-size:19px;line-height:1.15}
+.day .m{font-size:13px;color:var(--muted)}
+.day .bar{margin-top:auto;height:4px;border-radius:2px;background:var(--line2);overflow:hidden}
+.day .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--ember))}
+.day.choice{border-color:var(--gold)}
+.day.choice .or{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.day.rest{background:transparent}
+.legend{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:13px;color:var(--dim)}
+
+/* for who */
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;padding-block:140px 0}
+.fit article{border:1px solid var(--line2);border-radius:6px;padding:36px 30px;display:flex;flex-direction:column;gap:18px}
+.fit article.yes{background:linear-gradient(165deg,var(--ink2) 0%,#2B2620 60%,#3E372B 100%);border-color:#5B5340}
+.fit ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.fit li{display:flex;gap:12px}
+.fit li::before{content:"";flex:0 0 6px;height:6px;margin-top:11px;border-radius:50%;background:var(--gold)}
+.fit .no li::before{background:var(--dim)}
+.fit .no li{color:var(--muted)}
+
+/* coach */
+.coach{padding-block:140px;display:flex;flex-wrap:wrap;gap:56px;align-items:center}
+.mono{flex:1 1 380px;max-width:520px;aspect-ratio:4/5;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(120px,16vw,210px);letter-spacing:-.04em;background:radial-gradient(420px 320px at 50% 100%, rgba(200,118,58,.22), rgba(22,21,19,0) 70%)}
+.mono span{color:var(--gold)}
+.coach-text{flex:1 1 420px;display:flex;flex-direction:column;gap:24px;min-width:0}
+.facts{display:flex;flex-wrap:wrap;gap:28px 44px;padding-top:20px;border-top:1px solid var(--line)}
+.facts b{display:block;font-family:var(--serif);font-weight:400;font-size:21px}
+.facts span{font-size:13px;color:var(--dim)}
+
+/* offers */
+.offers{background:var(--cream);color:var(--ink)}
+.offers .wrap{padding-block:130px;display:flex;flex-direction:column;gap:56px}
+.offers-head{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end}
+.offers-head p{max-width:420px;color:#5C5446}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{border:1px solid #D6CDB8;border-radius:6px;padding:34px 26px;display:flex;flex-direction:column;gap:20px}
+.card .tag{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#5C5446}
+.card h3{font-size:29px}
+.price{font-family:var(--serif);font-size:42px;line-height:1}
+.price small{font:400 15px var(--sans);color:#5C5446}
+.card p{font-size:15px;color:#5C5446}
+.card ul{margin:0;padding:18px 0 0;list-style:none;border-top:1px solid #D6CDB8;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.card ul li::before{content:"— "}
+.card .pick{margin-top:auto;font-size:14px;font-weight:600;color:var(--ink);text-underline-offset:4px}
+.card.feat{background:linear-gradient(165deg,#161513 0%,#2B2620 50%,#5B5340 100%);color:var(--cream);border-color:transparent}
+.card.feat .tag{color:var(--gold)}
+.card.feat p,.card.feat .price small{color:var(--muted)}
+.card.feat ul{border-color:var(--line2)}
+.card.feat .btn{margin-top:auto}
+.terms{display:flex;flex-wrap:wrap;gap:12px 44px;font-size:14px;color:#5C5446;border-top:1px solid #D6CDB8;padding-top:22px}
+.terms b{color:var(--ink)}
+
+/* process */
+.process{background:linear-gradient(180deg,#161513 0%,#3E372B 22%,#5B5340 100%)}
+.process .wrap{padding-block:150px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:36px;margin-top:64px}
+.steps article{border-top:1px solid var(--cream);padding-top:22px;display:flex;flex-direction:column;gap:12px}
+.steps .n{font-family:var(--serif);font-weight:300;font-size:46px;line-height:1}
+.steps b{font-weight:600}
+.steps p{font-size:15px;color:#ECE3CF}
+.steps .when{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--butter)}
+
+/* faq */
+.faq .wrap{padding-block:140px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px 80px;align-items:start}
+.faq-list{border-top:1px solid var(--line2)}
+details{border-bottom:1px solid var(--line2)}
+summary{list-style:none;cursor:pointer;padding:24px 40px 24px 0;position:relative;font-family:var(--serif);font-size:22px;line-height:1.25}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:20px;font-family:var(--sans);font-size:26px;color:var(--gold);transition:transform .2s ease}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 26px;color:var(--muted);max-width:620px}
+
+/* apply */
+.apply{background:radial-gradient(900px 520px at 15% 100%, rgba(200,118,58,.28) 0%, rgba(91,83,64,.18) 45%, rgba(22,21,19,0) 75%), linear-gradient(180deg,#161513 0%,#1D1B18 100%);border-top:1px solid var(--line)}
+.apply .wrap{padding-block:140px;display:flex;flex-wrap:wrap;gap:56px 72px;align-items:flex-start}
+.apply-intro{flex:1 1 360px;display:flex;flex-direction:column;gap:26px;min-width:0}
+.apply-intro h2{font-size:clamp(46px,6.4vw,96px);line-height:.94}
+.promise{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.promise li{display:flex;gap:14px;align-items:baseline}
+.promise li span{font-family:var(--serif);color:var(--gold);font-size:15px;min-width:22px}
+.alt{font-size:15px;color:var(--muted)}
+.alt a{color:var(--butter);text-underline-offset:4px}
+form.app{flex:1 1 520px;min-width:0;background:var(--ink);border:1px solid var(--line2);border-radius:8px;padding:36px 30px;display:flex;flex-direction:column;gap:22px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.f > span,.f > legend{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:0}
+.f > span i,.f > legend i{font-style:normal;color:var(--gold)}
+fieldset.f{border:0;margin:0;padding:0}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;font:400 16px var(--sans);color:var(--ink);background:#EFE6D3;border:1px solid transparent;border-radius:10px;padding:14px 16px;min-height:50px}
+textarea{resize:vertical;min-height:96px}
+input::placeholder,textarea::placeholder{color:#8C836F}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#161513 50%),linear-gradient(135deg,#161513 50%,transparent 50%);background-position:calc(100% - 22px) 22px,calc(100% - 16px) 22px;background-size:6px 6px;background-repeat:no-repeat;padding-right:44px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border:1px solid var(--line2);border-radius:999px;font-size:14px;letter-spacing:.06em;color:var(--cream)}
+.chip input:checked + span{background:var(--butter);border-color:var(--butter);color:var(--ink)}
+.chip input:focus-visible + span{outline:2px solid var(--gold);outline-offset:2px}
+.form-foot{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between}
+.form-foot small{color:var(--dim);font-size:13px;max-width:300px}
+.hidden{position:absolute;left:-9999px}
+
+/* footer */
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:40px;display:flex;flex-wrap:wrap;gap:20px 32px;justify-content:space-between;align-items:center;font-size:14px;color:var(--dim)}
+footer nav{display:flex;flex-wrap:wrap;gap:24px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--cream)}
+.sel{user-select:all;color:var(--muted)}
+
+@media (max-width:860px){
+  .week{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .day{min-height:150px}
+  .dist div + div{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .pillars article + article{padding-left:0}
+}
+@media (max-width:520px){
+  .week{grid-template-columns:1fr}
+  .hero{padding-block:40px 48px}
+  form.app{padding:28px 18px}
+}
 </style>
-<style>html{scroll-behavior:smooth}*{box-sizing:border-box}</style>
 </head>
 <body>
-<div style="width: 100%; background: radial-gradient(1100px 680px at 82% 0%, rgba(226,150,74,0.30) 0%, rgba(150,104,52,0.14) 38%, rgba(22,21,19,0) 70%), #161513; color: #F4ECDC; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.6">
+<div class="page">
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="#top">NOAH BROSSEAU</a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#methode">Méthode</a>
+        <a href="#offres">Offres</a>
+        <a href="#processus">Processus</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-cta" href="#postuler">Postuler</a>
+      </nav>
+    </header>
 
-  <!-- NAV -->
-  <header style="max-width: 1280px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
-    <a href="#top" style="font-family: 'Fraunces', serif; font-size: 22px; letter-spacing: 0.32em; text-decoration: none; color: #F4ECDC">NOAH BROSSEAU</a>
-    <nav style="display: flex; flex-wrap: wrap; gap: 28px; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase">
-      <a href="#approche" style="text-decoration: none; color: #B5AC98">Approche</a>
-      <a href="#offres" style="text-decoration: none; color: #B5AC98">Offres</a>
-      <a href="#parcours" style="text-decoration: none; color: #B5AC98">Parcours</a>
-      <a href="#contact" style="text-decoration: none; color: #F4ECDC; border-bottom: 1px solid #E2C275; padding-bottom: 2px">Commencer</a>
-    </nav>
-  </header>
-
-  <!-- HERO -->
-  <section id="top" style="max-width: 1280px; margin: 0 auto; padding: 72px 24px 96px; display: flex; flex-direction: column; gap: 48px">
-    <div style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #E2C275">Coaching triathlon · Estrie, Québec</div>
-    <h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(56px, 9vw, 148px); line-height: 0.95; letter-spacing: -0.02em">Nage.<br>Roule.<br>Cours.<br><span style="font-style: italic; color: #E2C275">Avec intention.</span></h1>
-    <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; justify-content: space-between">
-      <p style="margin: 0; max-width: 520px; font-size: 19px; color: #D6CDB8">Un entraînement pensé par un kinésiologue qui vit le sport de l'intérieur. Structuré par la science, construit autour de ta vraie vie, fait pour durer.</p>
-      <a href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon" style="display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 32px; background: #F3DFA2; color: #161513; text-decoration: none; font-weight: 600; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; border-radius: 999px">Réserver un appel
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
-
-  <!-- PHOTO PLEIN ÉCRAN -->
-  <section style="max-width: 1280px; margin: 0 auto; padding: 0 24px">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); border-top: 1px solid #433E35; border-bottom: 1px solid #433E35">
-      <div style="padding: 40px 24px 40px 0; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #857C6A">Nage</div><div style="font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 6vw, 96px); line-height: 1">1,9<span style="font-size: 0.4em; color: #B5AC98"> km</span></div></div>
-      <div style="padding: 40px 24px; display: flex; flex-direction: column; gap: 8px; border-left: 1px solid #2E2B26"><div style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #857C6A">Vélo</div><div style="font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 6vw, 96px); line-height: 1">90<span style="font-size: 0.4em; color: #B5AC98"> km</span></div></div>
-      <div style="padding: 40px 0 40px 24px; display: flex; flex-direction: column; gap: 8px; border-left: 1px solid #2E2B26"><div style="font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: #857C6A">Course</div><div style="font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 6vw, 96px); line-height: 1">21,1<span style="font-size: 0.4em; color: #B5AC98"> km</span></div></div>
-    </div>
-    <div style="padding-top: 14px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #857C6A">Du sprint au demi-Ironman · Estrie</div>
-  </section>
-
-  <!-- MANIFESTE -->
-  <section id="approche" style="max-width: 1280px; margin: 0 auto; padding: 160px 24px 120px; display: flex; flex-wrap: wrap; gap: 64px; align-items: center">
-    <p style="flex: 999 1 560px; margin: 0; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(32px, 4.2vw, 60px); line-height: 1.15; letter-spacing: -0.01em">La performance ne vient pas du plan le plus dur. Elle vient du plan <span style="font-style: italic; color: #E2C275">que tu vas vraiment suivre</span> — semaine après semaine, saison après saison.</p>  </section>
-
-  <!-- 3 PILIERS -->
-  <section style="max-width: 1280px; margin: 0 auto; padding: 0 24px 160px">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: #2E2B26; border-top: 1px solid #2E2B26; border-bottom: 1px solid #2E2B26">
-      <div style="background: #161513; padding: 48px 32px 48px 0; display: flex; flex-direction: column; gap: 20px">
-        <div style="font-family: 'Fraunces', serif; font-size: 15px; color: #E2C275">01</div>
-        <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px; line-height: 1.1">Physiologie</h3>
-        <p style="margin: 0; color: #B5AC98">Zones, charge, récupération. Chaque séance a une raison d'exister, fondée sur la kinésiologie et la recherche — pas sur la mode.</p>
-      </div>
-      <div style="background: #161513; padding: 48px 32px; display: flex; flex-direction: column; gap: 20px">
-        <div style="font-family: 'Fraunces', serif; font-size: 15px; color: #E2C275">02</div>
-        <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px; line-height: 1.1">Flexibilité</h3>
-        <p style="margin: 0; color: #B5AC98">Des blocs en temps et en intensité, des choix dans ta semaine. Ton plan s'adapte à ton horaire au lieu de s'effondrer dès le premier imprévu.</p>
-      </div>
-      <div style="background: #161513; padding: 48px 0 48px 32px; display: flex; flex-direction: column; gap: 20px">
-        <div style="font-family: 'Fraunces', serif; font-size: 15px; color: #E2C275">03</div>
-        <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px; line-height: 1.1">Mental</h3>
-        <p style="margin: 0; color: #B5AC98">Motivation, gestion de la course, constance. La psychologie du sport fait partie de l'entraînement, pas d'un extra.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- À PROPOS -->
-  <section style="max-width: 1280px; margin: 0 auto; padding: 0 24px 160px; display: flex; flex-wrap: wrap; gap: 64px; align-items: center">
-    <div style="flex: 1 1 420px; max-width: 560px; aspect-ratio: 4 / 5; border: 1px solid #2E2B26; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-weight: 300; font-style: italic; font-size: clamp(120px, 16vw, 220px); color: #F4ECDC; letter-spacing: -0.04em">N<span style="color: #E2C275">b</span></div>
-    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 28px">
-      <div style="font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #E2C275">Ton coach</div>
-      <h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 5vw, 72px); line-height: 1">Noah<br>Brosseau</h2>
-      <p style="margin: 0; color: #D6CDB8; font-size: 18px">Triathlète compétitif, ancien joueur de soccer et étudiant en kinésiologie à l'Université de Sherbrooke. J'entraîne des athlètes de l'Estrie qui veulent progresser sans sacrifier le reste de leur vie.</p>
-      <p style="margin: 0; color: #B5AC98">Ce que j'applique à mes athlètes, je le teste d'abord sur moi : chaque bloc, chaque course, chaque erreur.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 40px; padding-top: 12px; border-top: 1px solid #2E2B26">
-        <div><div style="font-family: 'Fraunces', serif; font-size: 22px">Kinésiologie</div><div style="font-size: 13px; color: #857C6A">Université de Sherbrooke</div></div>
-        <div><div style="font-family: 'Fraunces', serif; font-size: 22px">Triathlon</div><div style="font-size: 13px; color: #857C6A">Compétiteur · Triathlon Québec</div></div>
-        <div><div style="font-family: 'Fraunces', serif; font-size: 22px">Soccer</div><div style="font-size: 13px; color: #857C6A">Ancien joueur</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OFFRES -->
-  <section id="offres" style="background: #F4ECDC; color: #161513">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 140px 24px; display: flex; flex-direction: column; gap: 64px">
-      <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: flex-end">
-        <h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(44px, 6vw, 88px); line-height: 0.95">Les offres</h2>
-        <p style="margin: 0; max-width: 400px; color: #5C5446">Tout commence par un appel gratuit de 20 minutes. Aucuns frais d'ouverture, bilan de départ inclus dans les deux coachings.</p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px">
-        <div style="border: 1px solid #D6CDB8; border-radius: 4px; padding: 36px 28px; display: flex; flex-direction: column; gap: 22px">
-          <div style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5C5446">Pour te situer</div>
-          <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 30px; line-height: 1.05">Bilan performance</h3>
-          <div style="font-family: 'Fraunces', serif; font-size: 42px">99 $ <span style="font-size: 15px; font-family: 'Instrument Sans', sans-serif; color: #5C5446">· 90 min</span></div>
-          <p style="margin: 0; color: #5C5446; font-size: 15px">Tes zones, tes forces, tes limites. Crédité en entier si tu commences un coaching dans le mois.</p>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px; border-top: 1px solid #D6CDB8; padding-top: 18px">
-            <div>— Tests terrain course et vélo</div><div>— Zones de FC et d'allure</div><div>— Dépistage mobilité et blessures</div><div>— Rapport écrit et priorités</div>
-          </div>
-        </div>
-        <div style="border: 1px solid #D6CDB8; border-radius: 4px; padding: 36px 28px; display: flex; flex-direction: column; gap: 22px">
-          <div style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5C5446">Pour une course</div>
-          <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 30px; line-height: 1.05">Plan objectif course</h3>
-          <div style="font-family: 'Fraunces', serif; font-size: 42px">199 $ <span style="font-size: 15px; font-family: 'Instrument Sans', sans-serif; color: #5C5446">· 12 sem.</span></div>
-          <p style="margin: 0; color: #5C5446; font-size: 15px">Un plan sur mesure pour une course précise. Tu t'entraînes en autonomie, avec un point de contrôle à mi-parcours.</p>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px; border-top: 1px solid #D6CDB8; padding-top: 18px">
-            <div>— Appel de départ</div><div>— Plan nage · vélo · course · muscu</div><div>— Révision à la 6ᵉ semaine</div><div>— Stratégie de course et nutrition</div>
-          </div>
-        </div>
-        <div style="border: 1px solid #D6CDB8; border-radius: 4px; padding: 36px 28px; display: flex; flex-direction: column; gap: 22px">
-          <div style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #5C5446">Suivi</div>
-          <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 30px; line-height: 1.05">Coaching Essentiel</h3>
-          <div style="font-family: 'Fraunces', serif; font-size: 42px">129 $ <span style="font-size: 15px; font-family: 'Instrument Sans', sans-serif; color: #5C5446">/ mois</span></div>
-          <p style="margin: 0; color: #5C5446; font-size: 15px">Un vrai coach, sans le prix d'un club. Pour l'athlète autonome qui veut une structure intelligente.</p>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px; border-top: 1px solid #D6CDB8; padding-top: 18px">
-            <div>— Bilan de départ inclus</div><div>— Plan ajusté aux 2 semaines</div><div>— Messagerie, réponse en 48 h</div><div>— Bilan mensuel écrit</div>
-          </div>
-        </div>
-        <div style="background: linear-gradient(165deg, #161513 0%, #2B2620 50%, #5B5340 100%); color: #F4ECDC; border-radius: 4px; padding: 36px 28px; display: flex; flex-direction: column; gap: 22px">
-          <div style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #E2C275">Le plus choisi</div>
-          <h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 30px; line-height: 1.05">Coaching Performance</h3>
-          <div style="font-family: 'Fraunces', serif; font-size: 42px">189 $ <span style="font-size: 15px; font-family: 'Instrument Sans', sans-serif; color: #B5AC98">/ mois</span></div>
-          <p style="margin: 0; color: #B5AC98; font-size: 15px">Le suivi complet : ton plan bouge chaque semaine avec ta vie, ta forme et tes données.</p>
-          <div style="display: flex; flex-direction: column; gap: 9px; font-size: 14px; border-top: 1px solid #2E2B26; padding-top: 18px">
-            <div>— Tout l'Essentiel, plus :</div><div>— Ajustement chaque semaine</div><div>— Analyse Strava / Garmin</div><div>— Musculation et prévention</div><div>— Appel vidéo mensuel</div><div>— Messagerie, réponse en 24 h</div>
-          </div>
-          <a href="#contact" style="margin-top: auto; display: flex; justify-content: center; align-items: center; min-height: 52px; background: #F3DFA2; color: #161513; text-decoration: none; border-radius: 999px; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase">Commencer</a>
+    <section id="top" class="hero">
+      <div class="eyebrow">Coaching triathlon · Estrie · en ligne partout au Québec</div>
+      <h1>Nage.<br>Roule.<br>Cours.<br><em>Avec intention.</em></h1>
+      <div class="hero-row">
+        <p class="lead">Un entraînement bâti par un kinésiologue qui court les mêmes courses que toi. Structuré par la science, construit autour de ta vraie vie, fait pour durer.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="#postuler">Postuler
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon">Appel gratuit</a>
         </div>
       </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 16px 48px; font-size: 14px; color: #5C5446; border-top: 1px solid #D6CDB8; padding-top: 24px">
-        <div><b style="color: #161513">Engagement 3 mois</b>, puis au mois, sans frais d'annulation.</div>
-        <div><b style="color: #161513">Tarif fondateur</b> : −20 % à vie pour les 5 prochains athlètes.</div>
+      <div class="proof">
+        <div><b>Kinésiologie</b><span>Université de Sherbrooke</span></div>
+        <div><b>Triathlète</b><span>Compétiteur · Triathlon Québec</span></div>
+        <div><b>Plans flexibles</b><span>Temps + intensité, jamais figés</span></div>
+        <div><b>Réponse en 24 h</b><span>Par une vraie personne : moi</span></div>
+      </div>
+    </section>
+
+    <div class="dist">
+      <div><small>Nage</small><strong>1,9<span> km</span></strong></div>
+      <div><small>Vélo</small><strong>90<span> km</span></strong></div>
+      <div><small>Course</small><strong>21,1<span> km</span></strong></div>
+    </div>
+    <div class="dist-cap">Du premier sprint au demi-Ironman</div>
+
+    <section class="manifesto">
+      <p>La performance ne vient pas du plan le plus dur. Elle vient du plan <em>que tu vas vraiment suivre</em>, semaine après semaine, saison après saison.</p>
+    </section>
+
+    <section id="methode">
+      <div class="eyebrow">La méthode</div>
+      <h2 style="margin-top:18px">Trois piliers.<br><em>Zéro séance inutile.</em></h2>
+      <div class="pillars">
+        <article><div class="n">01</div><h3>Physiologie</h3><p class="muted">Zones, charge, récupération. Chaque séance a une raison d'exister, fondée sur la kinésiologie et la recherche, pas sur la mode.</p></article>
+        <article><div class="n">02</div><h3>Flexibilité</h3><p class="muted">Des blocs en temps et en intensité, des choix dans ta semaine. Ton plan s'adapte à ton horaire au lieu de s'effondrer au premier imprévu.</p></article>
+        <article><div class="n">03</div><h3>Mental</h3><p class="muted">Motivation, gestion de course, constance. La psychologie du sport fait partie de l'entraînement, pas d'un extra.</p></article>
+      </div>
+
+      <div class="week-head">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="eyebrow">À quoi ça ressemble</div>
+          <h2 style="font-size:clamp(34px,4.4vw,60px)">Ton plan plie. <em>Il ne casse pas.</em></h2>
+        </div>
+        <p class="muted" style="max-width:440px">Chaque séance est prescrite en durée et en intensité sur 10. Certains jours, c'est toi qui choisis. Exemple d'une semaine de développement d'environ 6 h.</p>
+      </div>
+      <div class="week">
+        <div class="day rest"><div class="d">LUN</div><div class="s">Repos</div><div class="m">Mobilité 15 min</div><div class="bar"><i style="width:10%"></i></div></div>
+        <div class="day"><div class="d">MAR</div><div class="s">Course</div><div class="m">45 min · 6/10<br>Intervalles</div><div class="bar"><i style="width:60%"></i></div></div>
+        <div class="day choice"><div class="d">MER</div><div class="or">Au choix</div><div class="s">Nage 40 min</div><div class="m">ou muscu complète 45 min · 5/10</div><div class="bar"><i style="width:50%"></i></div></div>
+        <div class="day"><div class="d">JEU</div><div class="s">Vélo</div><div class="m">60 min · 4/10<br>Endurance</div><div class="bar"><i style="width:40%"></i></div></div>
+        <div class="day rest"><div class="d">VEN</div><div class="s">Repos</div><div class="m">Récupération complète</div><div class="bar"><i style="width:0%"></i></div></div>
+        <div class="day"><div class="d">SAM</div><div class="s">Vélo long</div><div class="m">2 h · 4/10<br>+ course 15 min</div><div class="bar"><i style="width:45%"></i></div></div>
+        <div class="day"><div class="d">DIM</div><div class="s">Course longue</div><div class="m">70 min · 3/10<br>Facile, conversationnel</div><div class="bar"><i style="width:30%"></i></div></div>
+      </div>
+      <div class="legend"><span>Barre dorée : intensité de la séance</span><span>Contour doré : tu choisis selon ta semaine</span></div>
+    </section>
+
+    <section class="fit" aria-label="Pour qui">
+      <article class="yes">
+        <div class="eyebrow">C'est pour toi si</div>
+        <ul>
+          <li>Tu vises un sprint, un olympique ou un demi-Ironman et tu veux y arriver en forme, pas en miettes.</li>
+          <li>Tu as un emploi, des études ou une famille, et ton horaire bouge.</li>
+          <li>Tu veux comprendre pourquoi tu fais chaque séance.</li>
+          <li>Tu veux progresser sans te blesser.</li>
+        </ul>
+      </article>
+      <article class="no">
+        <div class="eyebrow" style="color:var(--dim)">Ce n'est pas pour toi si</div>
+        <ul>
+          <li>Tu cherches un plan à suivre seul, sans jamais donner de nouvelles.</li>
+          <li>Tu crois que plus dur veut toujours dire mieux.</li>
+          <li>Tu n'es pas prêt à me dire chaque semaine comment tu te sens.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="coach">
+      <div class="mono" aria-hidden="true">N<span>b</span></div>
+      <div class="coach-text">
+        <div class="eyebrow">Ton coach</div>
+        <h2>Noah<br>Brosseau</h2>
+        <p class="lead" style="max-width:none">Triathlète compétitif, ancien joueur de soccer et étudiant en kinésiologie à l'Université de Sherbrooke. J'entraîne des athlètes de l'Estrie qui veulent progresser sans sacrifier le reste de leur vie.</p>
+        <p class="muted">Ce que j'applique à mes athlètes, je le teste d'abord sur moi : chaque bloc, chaque course, chaque erreur. Tu ne parles pas à une équipe ni à un robot. Tu me parles à moi.</p>
+        <div class="facts">
+          <div><b>Kinésiologie</b><span>Université de Sherbrooke</span></div>
+          <div><b>Triathlon</b><span>Compétiteur · Triathlon Québec</span></div>
+          <div><b>Soccer</b><span>Ancien joueur</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="offres" class="offers">
+    <div class="wrap">
+      <div class="offers-head">
+        <h2>Les offres</h2>
+        <p>Des prix clairs, sans frais d'ouverture. Aucun paiement avant notre appel découverte.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="tag">Pour te situer</div>
+          <h3>Bilan performance</h3>
+          <div class="price">99 $ <small>· 90 min</small></div>
+          <p>Tes zones, tes forces, tes limites. Crédité en entier si tu commences un coaching dans le mois.</p>
+          <ul><li>Tests terrain course et vélo</li><li>Zones de FC et d'allure</li><li>Dépistage mobilité et blessures</li><li>Rapport écrit et priorités</li></ul>
+          <a class="pick" href="#postuler" data-offre="Bilan performance">Choisir le bilan →</a>
+        </article>
+        <article class="card">
+          <div class="tag">Pour une course</div>
+          <h3>Plan objectif course</h3>
+          <div class="price">199 $ <small>· 12 sem.</small></div>
+          <p>Un plan sur mesure pour une course précise. Tu t'entraînes en autonomie, avec un point de contrôle à mi-parcours.</p>
+          <ul><li>Appel de départ</li><li>Plan nage · vélo · course · muscu</li><li>Révision à la 6ᵉ semaine</li><li>Stratégie de course et nutrition</li></ul>
+          <a class="pick" href="#postuler" data-offre="Plan objectif course">Choisir le plan →</a>
+        </article>
+        <article class="card">
+          <div class="tag">Suivi</div>
+          <h3>Coaching Essentiel</h3>
+          <div class="price">129 $ <small>/ mois</small></div>
+          <p>Un vrai coach, sans le prix d'un club. Pour l'athlète autonome qui veut une structure intelligente.</p>
+          <ul><li>Bilan de départ inclus</li><li>Plan ajusté aux 2 semaines</li><li>Messagerie, réponse en 48 h</li><li>Bilan mensuel écrit</li></ul>
+          <a class="pick" href="#postuler" data-offre="Coaching Essentiel">Choisir l'Essentiel →</a>
+        </article>
+        <article class="card feat">
+          <div class="tag">Le plus choisi</div>
+          <h3>Coaching Performance</h3>
+          <div class="price">189 $ <small>/ mois</small></div>
+          <p>Le suivi complet : ton plan bouge chaque semaine avec ta vie, ta forme et tes données.</p>
+          <ul><li>Tout l'Essentiel, plus :</li><li>Ajustement chaque semaine</li><li>Analyse Strava / Garmin</li><li>Musculation et prévention</li><li>Appel vidéo mensuel</li><li>Messagerie, réponse en 24 h</li></ul>
+          <a class="btn btn-primary" href="#postuler" data-offre="Coaching Performance">Postuler</a>
+        </article>
+      </div>
+      <div class="terms">
+        <div><b>Engagement 3 mois</b>, puis au mois, sans frais d'annulation.</div>
+        <div><b>Tarif fondateur</b> : −20 % à vie pour les 5 prochains athlètes.</div>
         <div>Prix en dollars canadiens.</div>
       </div>
     </div>
   </section>
 
-  <!-- PARCOURS -->
-  <section id="parcours" style="background: linear-gradient(180deg, #161513 0%, #3E372B 22%, #5B5340 100%)"><div style="max-width: 1280px; margin: 0 auto; padding: 160px 24px">
-    <h2 style="margin: 0 0 72px; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(40px, 5vw, 72px); line-height: 1">Comment ça <span style="font-style: italic; color: #E2C275">commence</span></h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px">
-      <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid #F4ECDC; padding-top: 24px"><div style="font-family: 'Fraunces', serif; font-size: 48px; font-weight: 300">1</div><div style="font-weight: 600">L'appel</div><div style="color: #ECE3CF; font-size: 15px">20 minutes pour parler de tes objectifs et voir si on est un bon match.</div></div>
-      <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid #F4ECDC; padding-top: 24px"><div style="font-family: 'Fraunces', serif; font-size: 48px; font-weight: 300">2</div><div style="font-weight: 600">L'évaluation</div><div style="color: #ECE3CF; font-size: 15px">Ton historique, ton horaire, ta forme actuelle. On part de la réalité.</div></div>
-      <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid #F4ECDC; padding-top: 24px"><div style="font-family: 'Fraunces', serif; font-size: 48px; font-weight: 300">3</div><div style="font-weight: 600">Le plan</div><div style="color: #ECE3CF; font-size: 15px">Un programme construit pour toi, avec la souplesse pour vivre ta vie.</div></div>
-      <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid #F4ECDC; padding-top: 24px"><div style="font-family: 'Fraunces', serif; font-size: 48px; font-weight: 300">4</div><div style="font-weight: 600">La ligne d'arrivée</div><div style="color: #ECE3CF; font-size: 15px">On ajuste, on progresse, on prépare la suivante.</div></div>
+  <section id="processus" class="process">
+    <div class="wrap">
+      <div class="eyebrow" style="color:var(--butter)">Le processus</div>
+      <h2 style="margin-top:18px">De ta candidature<br>à ta <em style="color:var(--butter)">première séance</em>.</h2>
+      <div class="steps">
+        <article><div class="n">1</div><div class="when">3 minutes</div><b>Tu postules</b><p>Ton objectif, ta semaine type, ton niveau. Juste assez pour que notre premier échange soit utile.</p></article>
+        <article><div class="n">2</div><div class="when">En 24 h</div><b>Je te réponds</b><p>Je lis tout moi-même et je te dis honnêtement si je suis le bon coach pour toi. Par texto ou par courriel, comme tu préfères.</p></article>
+        <article><div class="n">3</div><div class="when">20 minutes</div><b>Appel découverte</b><p>On choisit l'offre ensemble et on fixe tes priorités. Gratuit, sans engagement.</p></article>
+        <article><div class="n">4</div><div class="when">En 5 jours</div><b>Ton plan est prêt</b><p>Bâti pour toi, ajusté dès ta première semaine. Le paiement se fait seulement à cette étape.</p></article>
+      </div>
     </div>
-  </div></section>
-
-  <!-- CONTACT -->
-  <section id="contact" style="max-width: 1280px; margin: 0 auto; padding: 140px 24px; display: flex; flex-wrap: wrap; gap: 64px">
-    <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 24px">
-      <h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(48px, 7vw, 110px); line-height: 0.92">Ta prochaine<br><span style="font-style: italic; color: #E2C275">ligne de départ.</span></h2>
-      <p style="margin: 0; color: #B5AC98; max-width: 420px">Réserve ton appel découverte gratuit de 20 minutes, ou écris-moi quelques lignes sur ton objectif. Je te réponds en 48 h.</p>
-      <a href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon" style="align-self: flex-start; display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border: 1px solid #F4ECDC; color: #F4ECDC; text-decoration: none; border-radius: 999px; font-weight: 600; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase">Choisir une plage horaire</a>
-    </div>
-    
-    
-      <form style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 22px" action="https://formsubmit.co/brosseaunoah@gmail.com" method="POST">
-        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #B5AC98">Nom
-          <input type="text" name="nom" required style="background: transparent; border: none; border-bottom: 1px solid #433E35; color: #F4ECDC; font: inherit; font-size: 18px; text-transform: none; letter-spacing: 0; padding: 10px 0; min-height: 44px; outline-color: #E2C275">
-        </label>
-        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #B5AC98">Courriel
-          <input type="email" name="courriel" required style="background: transparent; border: none; border-bottom: 1px solid #433E35; color: #F4ECDC; font: inherit; font-size: 18px; text-transform: none; letter-spacing: 0; padding: 10px 0; min-height: 44px; outline-color: #E2C275">
-        </label>
-        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #B5AC98">Ton objectif
-          <textarea name="objectif" rows="4" style="background: transparent; border: none; border-bottom: 1px solid #433E35; color: #F4ECDC; font: inherit; font-size: 18px; text-transform: none; letter-spacing: 0; padding: 10px 0; resize: vertical; outline-color: #E2C275"></textarea>
-        </label>
-        <button type="submit" style="align-self: flex-start; min-height: 56px; padding: 0 36px; background: #F3DFA2; color: #161513; border: none; border-radius: 999px; font: inherit; font-weight: 600; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer">Envoyer</button>
-      </form>
-    
   </section>
 
-  <!-- FOOTER -->
-  <footer style="border-top: 1px solid #2E2B26">
-    <div style="max-width: 1280px; margin: 0 auto; padding: 40px 24px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; font-size: 14px; color: #857C6A">
-      <div style="font-family: 'Fraunces', serif; letter-spacing: 0.32em; color: #F4ECDC">NOAH BROSSEAU</div>
-      <div style="display: flex; gap: 28px; flex-wrap: wrap">
-        <a href="https://instagram.com/" style="color: #B5AC98; text-decoration: none">Instagram</a>
-        <a href="https://www.strava.com/athletes/91064950" style="color: #B5AC98; text-decoration: none">Strava</a>
-        <a href="mailto:[TON COURRIEL]" style="color: #B5AC98; text-decoration: none">Courriel</a>
+  <section id="faq" class="faq">
+    <div class="wrap">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="eyebrow">Questions</div>
+        <h2>Avant de <em>commencer</em>.</h2>
+        <p class="muted">Une autre question ? Écris-la dans ta candidature, je te réponds en 24 h.</p>
       </div>
-      <div>© 2026 · Sherbrooke, Québec</div>
+      <div class="faq-list">
+        <details><summary>Je débute en triathlon. Est-ce pour moi ?</summary><p>Oui. Un premier sprint est un excellent objectif. On commence par ta base actuelle et on construit progressivement, en priorisant la technique de nage et la prévention des blessures.</p></details>
+        <details><summary>Je n'ai que 5 ou 6 heures par semaine.</summary><p>C'est suffisant pour un sprint ou un olympique bien préparé. Le plan est bâti autour de tes heures réelles, pas d'un idéal qui ne tiendra pas.</p></details>
+        <details><summary>Comment je reçois mon plan ?</summary><p>Dans un document clair, avec chaque séance en durée et en intensité. Avec le Coaching Performance, j'analyse aussi tes séances Strava ou Garmin chaque semaine.</p></details>
+        <details><summary>Je ne suis pas en Estrie.</summary><p>Le coaching se fait en ligne, partout au Québec. Seul le Bilan performance se fait en personne, en Estrie.</p></details>
+        <details><summary>Comment fonctionne l'engagement ?</summary><p>Les coachings commencent par 3 mois, le temps de voir de vrais progrès. Ensuite, c'est au mois, sans frais d'annulation.</p></details>
+        <details><summary>Mes assurances remboursent-elles ?</summary><p>Pas pour l'instant. Les reçus d'assurance en kinésiologie exigent l'accréditation FKQ, que je n'ai pas encore comme étudiant.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="postuler" class="apply">
+    <div class="wrap">
+      <div class="apply-intro">
+        <div class="eyebrow">Postuler</div>
+        <h2>Ta prochaine ligne de départ <em>commence ici.</em></h2>
+        <ul class="promise">
+          <li><span>01</span>Réponse personnelle en 24 h</li>
+          <li><span>02</span>Appel découverte gratuit de 20 minutes</li>
+          <li><span>03</span>Aucun paiement avant notre appel</li>
+        </ul>
+        <p class="alt">Tu préfères parler d'abord ? <a href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon">Réserve directement ton appel</a>.</p>
+      </div>
+
+      <form class="app" name="candidature" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="candidature">
+        <p class="hidden"><label>Ne pas remplir : <input name="bot-field"></label></p>
+        <div class="row">
+          <label class="f"><span>Prénom <i>*</i></span><input id="prenom" type="text" name="prenom" autocomplete="given-name" required></label>
+          <label class="f"><span>Nom <i>*</i></span><input id="nom" type="text" name="nom" autocomplete="family-name" required></label>
+        </div>
+        <div class="row">
+          <label class="f"><span>Courriel <i>*</i></span><input id="courriel" type="email" name="courriel" autocomplete="email" required></label>
+          <label class="f"><span>Téléphone <i>*</i></span><input id="telephone" type="tel" name="telephone" autocomplete="tel" placeholder="819 555-0123" required></label>
+        </div>
+        <label class="f"><span>Ville ou région <i>*</i></span><input id="ville" type="text" name="ville" placeholder="Sherbrooke, Magog, Montréal…" required></label>
+        <fieldset class="f">
+          <legend>Tu t'entraînes pour <i>*</i></legend>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="sports" value="Triathlon"><span>Triathlon</span></label>
+            <label class="chip"><input type="checkbox" name="sports" value="Nage"><span>Nage</span></label>
+            <label class="chip"><input type="checkbox" name="sports" value="Vélo"><span>Vélo</span></label>
+            <label class="chip"><input type="checkbox" name="sports" value="Course"><span>Course</span></label>
+            <label class="chip"><input type="checkbox" name="sports" value="Trail"><span>Trail</span></label>
+            <label class="chip"><input type="checkbox" name="sports" value="Autre"><span>Autre</span></label>
+          </div>
+        </fieldset>
+        <label class="f"><span>Ton objectif principal <i>*</i></span><textarea id="objectif" name="objectif" placeholder="Ex. Demi-Ironman de Mont-Tremblant, juin 2027, sous 5 h 30" required></textarea></label>
+        <label class="f"><span>Ton niveau actuel</span><textarea id="niveau" name="niveau" placeholder="Ta dernière course et ton temps, ou ce que tu fais en ce moment"></textarea></label>
+        <div class="row">
+          <label class="f"><span>Heures par semaine <i>*</i></span>
+            <select id="heures" name="heures" required>
+              <option value="">Choisir</option><option>Moins de 5 h</option><option>5 à 8 h</option><option>8 à 12 h</option><option>Plus de 12 h</option>
+            </select>
+          </label>
+          <label class="f"><span>Offre qui t'intéresse</span>
+            <select id="offre" name="offre">
+              <option>Je ne sais pas encore</option><option>Bilan performance</option><option>Plan objectif course</option><option>Coaching Essentiel</option><option>Coaching Performance</option>
+            </select>
+          </label>
+        </div>
+        <label class="f"><span>Qu'attends-tu de ton coach ?</span><textarea id="attentes" name="attentes" placeholder="Structure, motivation, technique, prévention des blessures…"></textarea></label>
+        <label class="f"><span>Comment m'as-tu trouvé ?</span>
+          <select id="source" name="source"><option value="">Choisir</option><option>Instagram</option><option>Strava</option><option>Bouche-à-oreille</option><option>Autre</option></select>
+        </label>
+        <div class="form-foot">
+          <small>Aucun paiement avant notre appel. Tes infos restent entre nous.</small>
+          <button class="btn btn-primary" type="submit">Envoyer ma candidature</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="brand" style="font-size:16px">NOAH BROSSEAU</div>
+      <nav aria-label="Liens">
+        <a href="https://www.strava.com/athletes/91064950">Strava</a>
+        <a href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon">Réserver un appel</a>
+        <a href="/liens/">Tous mes liens</a>
+      </nav>
+      <span class="sel">brosseaunoah@gmail.com</span>
+      <span>© 2026 · Sherbrooke, Québec</span>
     </div>
   </footer>
 </div>
+<script>
+document.querySelectorAll('[data-offre]').forEach(function(a){
+  a.addEventListener('click',function(){var s=document.getElementById('offre');if(s){s.value=a.getAttribute('data-offre');}});
+});
+document.querySelector('form.app').addEventListener('submit',function(e){
+  if(!this.querySelector('input[name=sports]:checked')){e.preventDefault();var c=this.querySelector('.chips');c.scrollIntoView({block:'center'});c.style.outline='2px solid #E2C275';c.style.outlineOffset='6px';c.style.borderRadius='8px';}
+});
+</script>
 </body>
 </html>
