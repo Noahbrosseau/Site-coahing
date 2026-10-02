@@ -215,7 +215,7 @@ footer a:hover{color:var(--cream)}
   background:radial-gradient(520px 260px at 72% 58%, rgba(243,180,110,.55) 0%, rgba(200,118,58,.28) 40%, rgba(200,118,58,0) 72%),
              linear-gradient(180deg,#161513 0%,#1C1915 40%,#33261A 66%,#4E3420 82%,#2A2018 100%)}
 #terrain{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero3d::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(22,21,19,.82) 0%,rgba(22,21,19,.45) 42%,rgba(22,21,19,0) 70%)}
+.hero3d::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(22,21,19,.86) 0%,rgba(22,21,19,.55) 45%,rgba(22,21,19,.15) 75%),linear-gradient(180deg,rgba(22,21,19,.55) 0%,rgba(22,21,19,0) 22%)}
 .hero3d::after{content:"";position:absolute;inset:auto 0 0 0;height:220px;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(22,21,19,0),#161513)}
 .hero3d .wrap{position:relative;z-index:2;width:100%}
 .hero{padding-block:112px 64px;gap:32px}
@@ -287,6 +287,16 @@ footer a:hover{color:var(--cream)}
 .hud-item i{display:block;height:2px;background:rgba(244,236,220,.16);overflow:hidden}
 .hud-item b{display:block;height:100%;width:0;background:var(--gold)}
 @media (prefers-reduced-motion: reduce){.grain{animation:none}}
+
+/* ===== v4 : séquence photo ===== */
+.scenes{position:absolute;inset:0;z-index:0;overflow:hidden;background:#161513}
+.scene{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.6s ease}
+.scene.on{opacity:1}
+.scene img{width:100%;height:100%;object-fit:cover;display:block;filter:sepia(.32) saturate(.9) contrast(1.06) brightness(.78);transform:scale(1.12);transform-origin:60% 50%}
+.scene.on img{animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.12) translate3d(1.2%,0,0)}to{transform:scale(1.0) translate3d(0,0,0)}}
+.grade{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;background:linear-gradient(180deg,rgba(22,21,19,.2) 0%,rgba(200,118,58,.35) 70%,rgba(22,21,19,.5) 100%)}
+@media (prefers-reduced-motion: reduce){.scene.on img{animation:none;transform:none}.scene{transition:none}}
 </style>
 </head>
 <body>
@@ -307,7 +317,7 @@ footer a:hover{color:var(--cream)}
   </div>
 
   <section id="top" class="hero3d">
-    <canvas id="terrain" aria-hidden="true"></canvas><div class="vig" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="cut" aria-hidden="true"></div>
+    <div class="scenes"><figure class="scene on"><img src="https://images.unsplash.com/photo-1731812864631-2edce7f288be?auto=format&fit=crop&q=75&w=1600" srcset="https://images.unsplash.com/photo-1731812864631-2edce7f288be?auto=format&fit=crop&q=75&w=800 800w, https://images.unsplash.com/photo-1731812864631-2edce7f288be?auto=format&fit=crop&q=75&w=1400 1400w, https://images.unsplash.com/photo-1731812864631-2edce7f288be?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="Nageur en combinaison dans l'eau libre" loading="eager" fetchpriority="high" decoding="async"></figure><figure class="scene"><img src="https://images.unsplash.com/photo-1600596747748-9888ce1bc338?auto=format&fit=crop&q=75&w=1600" srcset="https://images.unsplash.com/photo-1600596747748-9888ce1bc338?auto=format&fit=crop&q=75&w=800 800w, https://images.unsplash.com/photo-1600596747748-9888ce1bc338?auto=format&fit=crop&q=75&w=1400 1400w, https://images.unsplash.com/photo-1600596747748-9888ce1bc338?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="Cycliste en silhouette au coucher du soleil" loading="lazy" decoding="async"></figure><figure class="scene"><img src="https://images.unsplash.com/photo-1773561212492-66b0404b72aa?auto=format&fit=crop&q=75&w=1600" srcset="https://images.unsplash.com/photo-1773561212492-66b0404b72aa?auto=format&fit=crop&q=75&w=800 800w, https://images.unsplash.com/photo-1773561212492-66b0404b72aa?auto=format&fit=crop&q=75&w=1400 1400w, https://images.unsplash.com/photo-1773561212492-66b0404b72aa?auto=format&fit=crop&q=75&w=2200 2200w" sizes="100vw" alt="Coureur qui court vers le soleil couchant" loading="lazy" decoding="async"></figure><div class="grade" aria-hidden="true"></div></div><div class="vig" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="cut" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero">
         <div class="eyebrow fade">Coaching triathlon · En ligne, où que tu sois</div>
@@ -579,7 +589,7 @@ footer a:hover{color:var(--cream)}
         <a href="/liens/">Tous mes liens</a>
       </nav>
       <span class="sel">brosseaunoah@gmail.com</span>
-      <span>© 2026 · Sherbrooke, Québec</span>
+      <span>© 2026 · Sherbrooke, Québec · Photos d'accueil : Unsplash</span>
     </div>
   </footer>
 </div>
@@ -657,158 +667,26 @@ if(window.gsap&&window.ScrollTrigger&&!reduce){
 }else{var l=document.getElementById('steps-line');if(l)l.style.transform='none';}
 })();
 </script>
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-const canvas=document.getElementById('terrain'), hero=document.querySelector('.hero3d');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, mobile=matchMedia('(max-width: 760px)').matches;
-let renderer;
-try{renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!mobile,powerPreference:'high-performance'});}catch(e){canvas.remove();}
-let broken=false;
-if(renderer){renderer.setClearColor(0x000000,0);renderer.debug.onShaderError=()=>{broken=true;};
-renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:1.75));
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(mobile?70:52,1,.1,1200);
-
-// ---------- world ----------
-const GH=`float baseH(float x,float z){return 2.4*sin(x*0.09)*cos(z*0.07)+1.5*sin(x*0.21+z*0.13+1.3)+0.7*sin(x*0.43-z*0.29)+0.3*sin(x*0.9+z*0.7);}
-float hgt(vec2 p){float x=p.x,z=p.y;float lake=1.0-smoothstep(12.0,26.0,length(vec2(x*0.8,z-18.0)));
-return baseH(x,z)+max(0.0,-z-40.0)*0.075+2.2-lake*10.0;}`;
-const ss=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);};
-const baseH=(x,z)=>2.4*Math.sin(x*.09)*Math.cos(z*.07)+1.5*Math.sin(x*.21+z*.13+1.3)+.7*Math.sin(x*.43-z*.29)+.3*Math.sin(x*.9+z*.7);
-const H=(x,z)=>{const lake=1-ss(12,26,Math.hypot(x*.8,z-18));return baseH(x,z)+Math.max(0,-z-40)*.075+2.2-lake*10;};
-
-const U={uSunDir:{value:new THREE.Vector3(.25,.08,-1).normalize()},uSunCol:{value:new THREE.Color()},uHor:{value:new THREE.Color()},uZen:{value:new THREE.Color()},uCam:{value:new THREE.Vector3()},uTime:{value:0}};
-const FOG=`vec3 fogc(vec3 col,vec3 w){float d=length(w-uCam);vec3 V=normalize(w-uCam);float s=max(dot(V,uSunDir),0.0);
-vec3 f=uHor+uSunCol*pow(s,8.0)*0.35;return mix(col,f,smoothstep(30.0,330.0,d));}`;
-const HEAD=`uniform vec3 uSunDir;uniform vec3 uSunCol;uniform vec3 uHor;uniform vec3 uZen;uniform vec3 uCam;uniform float uTime;`;
-
-// sky
-const sky=new THREE.Mesh(new THREE.SphereGeometry(800,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:U,
- vertexShader:`varying vec3 vD;void main(){vD=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
- fragmentShader:HEAD+`varying vec3 vD;void main(){vec3 d=normalize(vD);float y=d.y;
- vec3 c=mix(uHor,uZen,smoothstep(-0.02,0.5,y)); if(y<0.0)c=uHor*0.7;
- float s=max(dot(d,uSunDir),0.0); c+=uSunCol*(pow(s,1400.0)*2.4+pow(s,90.0)*0.45+pow(s,8.0)*0.22);
- gl_FragColor=vec4(c,1.);}`}));
-sky.renderOrder=-2; scene.add(sky);
-
-// terrain
-const seg=mobile?170:280;
-const tg=new THREE.PlaneGeometry(300,300,seg,seg); tg.rotateX(-Math.PI/2); tg.translate(0,0,-90);
-scene.add(new THREE.Mesh(tg,new THREE.ShaderMaterial({uniforms:U,
- vertexShader:GH+`varying float vH;varying vec3 vW;void main(){vec3 p=position;p.y=hgt(p.xz);vH=p.y;vec4 w=modelMatrix*vec4(p,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
- fragmentShader:HEAD+FOG+`varying float vH;varying vec3 vW;void main(){
-  vec3 n=normalize(cross(dFdx(vW),dFdy(vW)));if(n.y<0.)n=-n;
-  float diff=clamp(dot(n,normalize(uSunDir+vec3(0.,0.25,0.))),0.,1.);
-  vec3 base=mix(vec3(.06,.055,.05),vec3(.30,.23,.16),pow(diff,1.4));
-  float k=vH*1.1;float w=fwidth(k);float minor=1.-smoothstep(0.,w*1.3,abs(fract(k+.5)-.5));
-  float k5=k/5.;float w5=fwidth(k5);float major=1.-smoothstep(0.,w5*1.6,abs(fract(k5+.5)-.5));
-  vec3 lc=mix(vec3(.96,.89,.70),uSunCol,.45);
-  vec3 col=base+lc*(minor*.22+major*.55)*(.35+.65*diff);
-  gl_FragColor=vec4(fogc(col,vW),1.);}`})));
-
-// water
-const wg=new THREE.PlaneGeometry(130,96,1,1); wg.rotateX(-Math.PI/2); wg.translate(0,0,18);
-scene.add(new THREE.Mesh(wg,new THREE.ShaderMaterial({uniforms:U,
- vertexShader:`varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
- fragmentShader:HEAD+FOG+`varying vec3 vW;
- vec2 wv(vec2 p,vec2 d,float f,float a,float s){float ph=dot(d,p)*f+uTime*s;return d*(a*f*cos(ph));}
- void main(){vec2 p=vW.xz;vec2 g=wv(p,normalize(vec2(1.,.3)),.9,.05,1.3)+wv(p,normalize(vec2(-.4,1.)),1.7,.025,1.9)+wv(p,normalize(vec2(.7,-.6)),3.3,.012,2.7)+wv(p,normalize(vec2(-.9,-.2)),6.1,.006,3.4);
-  vec3 n=normalize(vec3(-g.x,1.,-g.y));vec3 V=normalize(uCam-vW);
-  float fr=pow(1.-max(dot(n,V),0.),3.);vec3 R=reflect(-V,n);
-  vec3 sk=mix(uHor,uZen,smoothstep(0.,.5,R.y));float s=max(dot(R,uSunDir),0.);
-  vec3 col=mix(vec3(.025,.024,.022),sk,.18+.7*fr)+uSunCol*(pow(s,420.)*7.+pow(s,40.)*.35);
-  gl_FragColor=vec4(fogc(col,vW),1.);}`})));
-
-// ---------- route ----------
-const swim=[],bike=[],run=[];
-for(let i=0;i<=14;i++){const t=i/14,z=36-t*32;swim.push(new THREE.Vector3(-6+4*Math.sin(t*3),.22,z));}
-const sm=(x,z)=>(H(x,z)+H(x,z-2)+H(x,z+2)+H(x-2,z)+H(x+2,z))/5;
-for(let i=1;i<=40;i++){const t=i/40,z=4-t*120,x=-6+4*Math.sin(3)+14*Math.sin((4-z)*.035);bike.push(new THREE.Vector3(x,Math.max(sm(x,z),0)+.25,z));}
-const bl=bike[bike.length-1];
-for(let i=1;i<=16;i++){const t=i/16,z=bl.z-t*48,x=bl.x+6*Math.sin(t*4)+t*5;run.push(new THREE.Vector3(x,sm(x,z)+.22,z));}
-const pts=[...swim,...bike,...run];
-const len=a=>{let s=0;for(let i=1;i<a.length;i++)s+=a[i].distanceTo(a[i-1]);return s;};
-const L1=len(swim),L2=len([swim[swim.length-1],...bike]),L3=len([bl,...run]),LT=L1+L2+L3;
-const uSwim=L1/LT,uBike=(L1+L2)/LT;
-const curve=new THREE.CatmullRomCurve3(pts,false,'centripetal');
-
-const RU={uSwim:{value:uSwim},uBike:{value:uBike},uHeadU:{value:0}};
-scene.add(new THREE.Mesh(new THREE.TubeGeometry(curve,1200,mobile?.16:.12,8,false),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:RU,
- vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
- fragmentShader:`uniform float uSwim,uBike,uHeadU;varying vec2 vUv;void main(){float x=vUv.x;
-  if(x>uSwim&&x<uBike)discard; if(x>uBike&&fract(x*520.)>.55)discard;
-  vec3 c=x<uSwim?vec3(.97,.93,.85):vec3(.92,.52,.24);
-  float near=exp(-abs(x-uHeadU)*60.);gl_FragColor=vec4(c*(.55+1.4*near),.9);}`})));
-
-// road ribbon
-{const N=mobile?500:800,w=1.5,pos=[],uv=[],idx=[];const up=new THREE.Vector3(0,1,0);
- for(let i=0;i<=N;i++){const u=uSwim+(uBike-uSwim)*i/N,p=curve.getPointAt(u),t=curve.getTangentAt(u),s=new THREE.Vector3().crossVectors(t,up).normalize();
-  const lx=p.x+s.x*w,lz=p.z+s.z*w,rx=p.x-s.x*w,rz=p.z-s.z*w;const y=Math.max(H(lx,lz),H(rx,rz),H(p.x,p.z),.15)+.1;
-  pos.push(lx,y,lz,rx,y,rz);uv.push(i/N,0,i/N,1);if(i<N){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2);}}
- const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);
- const roadLen=L2;
- scene.add(new THREE.Mesh(g,new THREE.ShaderMaterial({side:THREE.DoubleSide,uniforms:Object.assign({uLen:{value:roadLen}},U),
-  vertexShader:`varying vec2 vUv;varying vec3 vW;void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
-  fragmentShader:HEAD+FOG+`uniform float uLen;varying vec2 vUv;varying vec3 vW;void main(){
-   vec3 c=vec3(.055,.05,.046);float e=min(vUv.y,1.-vUv.y);c+=vec3(.6,.56,.48)*(1.-smoothstep(.02,.05,e))*.5;
-   float dash=step(fract(vUv.x*uLen/3.2),.5)*(1.-smoothstep(.015,.03,abs(vUv.y-.5)));c+=vec3(.95,.87,.64)*dash*.9;
-   gl_FragColor=vec4(fogc(c,vW),1.);}`})));}
-
-// athlete glow
-const gc=document.createElement('canvas');gc.width=gc.height=128;const gx=gc.getContext('2d');
-const gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,244,215,1)');gr.addColorStop(.22,'rgba(245,205,140,.8)');gr.addColorStop(1,'rgba(200,118,58,0)');gx.fillStyle=gr;gx.fillRect(0,0,128,128);
-const athlete=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-athlete.scale.set(2.4,2.4,1);scene.add(athlete);
-
-// ---------- light over the day ----------
-const dawn={s:new THREE.Color(1.0,.84,.60),h:new THREE.Color(.27,.21,.17),z:new THREE.Color(.075,.072,.07),e:.11};
-const dusk={s:new THREE.Color(1.0,.56,.26),h:new THREE.Color(.40,.21,.12),z:new THREE.Color(.07,.05,.045),e:.035};
-function light(k){U.uSunCol.value.copy(dawn.s).lerp(dusk.s,k);U.uHor.value.copy(dawn.h).lerp(dusk.h,k);U.uZen.value.copy(dawn.z).lerp(dusk.z,k);
- U.uSunDir.value.set(.25+.15*k,dawn.e+(dusk.e-dawn.e)*k,-1).normalize();}
-
-// ---------- camera ----------
-let mx=0,my=0,tx=0,ty=0;addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
-const camPos=new THREE.Vector3(),camLook=new THREE.Vector3(),tmp=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
-function place(u,snap){
- const a=curve.getPointAt(Math.max(0,u-.03)),b=curve.getPointAt(Math.min(1,u+.06)),t=curve.getTangentAt(Math.max(0,u-.03));
- const side=new THREE.Vector3().crossVectors(t,up).normalize();
- const lift=u<uSwim?1.1:(u<uBike?2.4:1.9);
- tmp.copy(a).addScaledVector(up,lift).addScaledVector(side,1.4+mx*3);tmp.y+=-my*1.2;
- tmp.y=Math.max(tmp.y,H(tmp.x,tmp.z)+.9,.6);
- const look=b.clone().addScaledVector(up,.6);
- if(snap){camPos.copy(tmp);camLook.copy(look);}else{camPos.lerp(tmp,.06);camLook.lerp(look,.06);}
- camera.position.copy(camPos);camera.lookAt(camLook);
- const ah=curve.getPointAt(u);athlete.position.set(ah.x,ah.y+.35,ah.z);
- sky.position.copy(camPos);U.uCam.value.copy(camPos);RU.uHeadU.value=u;
-}
-
-// ---------- sync with headline ----------
-const words=[...document.querySelectorAll('.hl .w')],hud=[...document.querySelectorAll('.hud-item')],bars=hud.map(x=>x.querySelector('b'));
-let phase=-1;
-function sync(u){const p=u<uSwim?0:(u<uBike?1:2);
- const f=p===0?u/uSwim:(p===1?(u-uSwim)/(uBike-uSwim):(u-uBike)/(1-uBike));
- bars.forEach((b,i)=>{b.style.width=(i<p?100:(i===p?f*100:0))+'%';});
- if(p!==phase){phase=p;words.forEach((w,i)=>w.classList.toggle('on',i===p));hud.forEach((x,i)=>x.classList.toggle('on',i===p));}}
-
-function resize(){const w=canvas.clientWidth,hh=canvas.clientHeight;renderer.setSize(w,hh,false);camera.aspect=w/hh;camera.updateProjectionMatrix();}
-addEventListener('resize',()=>{resize();if(reduce)still();});resize();
-
-const D=mobile?34000:40000,cut=document.querySelector('.cut');
-function still(){const u=(uSwim+uBike)/2;light(.5);place(u,true);renderer.render(scene,camera);}
-if(reduce){still();words.forEach(w=>w.classList.add('on'));}
-else{
- hero.classList.add('playing');
- let visible=true,raf=0,t0=performance.now(),first=true;
- new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible){cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}).observe(canvas);
- function frame(now){if(!visible||broken){if(broken){canvas.remove();hero.classList.remove('playing');}return;}
-  const u=((now-t0)%D)/D;
-  mx+=(tx-mx)*.04;my+=(ty-my)*.04;
-  U.uTime.value=now/1000;light(u);place(u,first||u<.004);first=false;sync(u);
-  cut.classList.toggle('on',u>.965);
-  renderer.render(scene,camera);raf=requestAnimationFrame(frame);}
- raf=requestAnimationFrame(frame);
-}
-}
+<script>
+(function(){
+var hero=document.querySelector('.hero3d'),scenes=[].slice.call(document.querySelectorAll('.scene')),
+    words=[].slice.call(document.querySelectorAll('.hl .w')),hud=[].slice.call(document.querySelectorAll('.hud-item')),
+    bars=hud.map(function(x){return x.querySelector('b');}),cut=document.querySelector('.cut');
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+scenes.forEach(function(s){var im=s.querySelector('img');im.addEventListener('error',function(){s.remove();});});
+if(reduce){words.forEach(function(w){w.classList.add('on');});bars.forEach(function(b){b.style.width='100%';});return;}
+hero.classList.add('playing');
+var D=7000,cur=0,t0=performance.now(),visible=true;
+function show(n){cur=n;scenes.forEach(function(s,i){s.classList.toggle('on',i===n);});
+  words.forEach(function(w,i){w.classList.toggle('on',i===n);});hud.forEach(function(x,i){x.classList.toggle('on',i===n);});}
+new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible){t0=performance.now()-(t0?0:0);requestAnimationFrame(tick);}}).observe(hero);
+function tick(now){if(!visible)return;
+  var el=now-t0,f=Math.min(1,el/D);
+  bars.forEach(function(b,i){b.style.width=(i<cur?100:(i===cur?f*100:0))+'%';});
+  if(el>=D){var n=(cur+1)%scenes.length;if(n===0){bars.forEach(function(b){b.style.width='0%';});}show(n);t0=now;}
+  requestAnimationFrame(tick);}
+requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
