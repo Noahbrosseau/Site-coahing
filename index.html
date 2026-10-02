@@ -271,6 +271,22 @@ footer a:hover{color:var(--cream)}
   .week::-webkit-scrollbar{display:none}
   .week .day{flex:0 0 46%;scroll-snap-align:start;min-height:170px}
 }
+
+/* ===== v3 : plan-séquence ===== */
+.vig,.grain,.cut{position:absolute;inset:0;pointer-events:none;z-index:1}
+.vig{background:radial-gradient(120% 90% at 60% 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.5) 100%)}
+.grain{opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+.cut{background:#161513;opacity:0;transition:opacity .9s ease}
+.cut.on{opacity:1}
+.hl .w{transition:opacity .9s ease}
+.hero3d.playing .hl .w:not(.on){opacity:.26}
+.hud{display:flex;flex-wrap:wrap;gap:14px 22px}
+.hud-item{display:flex;flex-direction:column;gap:8px;min-width:96px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);transition:color .6s ease}
+.hud-item.on{color:var(--cream)}
+.hud-item i{display:block;height:2px;background:rgba(244,236,220,.16);overflow:hidden}
+.hud-item b{display:block;height:100%;width:0;background:var(--gold)}
+@media (prefers-reduced-motion: reduce){.grain{animation:none}}
 </style>
 </head>
 <body>
@@ -291,11 +307,11 @@ footer a:hover{color:var(--cream)}
   </div>
 
   <section id="top" class="hero3d">
-    <canvas id="terrain" aria-hidden="true"></canvas>
+    <canvas id="terrain" aria-hidden="true"></canvas><div class="vig" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div><div class="cut" aria-hidden="true"></div>
     <div class="wrap">
       <div class="hero">
         <div class="eyebrow fade">Coaching triathlon · En ligne, où que tu sois</div>
-        <h1 class="hl"><span><span>Nager.</span></span><span><span>Rouler.</span></span><span><span>Courir.</span></span><span><span><em>Avec intention.</em></span></span></h1>
+        <h1 class="hl"><span><span class="w on">Nager.</span></span><span><span class="w">Rouler.</span></span><span><span class="w">Courir.</span></span><span><span><em>Avec intention.</em></span></span></h1>
         <div class="hero-row">
           <p class="lead fade">Un entraînement bâti par un kinésiologue. Chaque séance a une raison, chaque semaine s'adapte à ta vie, et chaque ligne de départ te trouve prêt.</p>
           <div class="ctas fade">
@@ -306,7 +322,7 @@ footer a:hover{color:var(--cream)}
           </div>
         </div>
         <div class="hero-row fade" style="align-items:center">
-          <div class="legend3d"><span><i style="background:#F4ECDC"></i>Nage</span><span><i style="background:#F3DFA2"></i>Vélo</span><span><i style="background:#C8763A"></i>Course</span></div>
+          <div class="hud" aria-hidden="true"><div class="hud-item on"><span>01 · Nage</span><i><b></b></i></div><div class="hud-item"><span>02 · Vélo</span><i><b></b></i></div><div class="hud-item"><span>03 · Course</span><i><b></b></i></div></div>
           <div class="scroll-hint"><span></span>Défiler</div>
         </div>
       </div>
@@ -643,103 +659,155 @@ if(window.gsap&&window.ScrollTrigger&&!reduce){
 </script>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-const canvas=document.getElementById('terrain');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mobile=matchMedia('(max-width: 760px)').matches;
+const canvas=document.getElementById('terrain'), hero=document.querySelector('.hero3d');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, mobile=matchMedia('(max-width: 760px)').matches;
 let renderer;
-try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});}catch(e){canvas.remove();}
-if(renderer){
-  renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:2));
-  renderer.setClearColor(0x000000,0);
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(mobile?64:48,1,.1,500);
-  const GLSL_H=`float hgt(vec2 p){float x=p.x,z=p.y;
-    float r=2.6*sin(x*0.11)*cos(z*0.09)+1.6*sin(x*0.23+z*0.17+1.3)+0.8*sin(x*0.47-z*0.31)+0.35*sin(x*0.9+z*0.7);
-    r+=max(0.0,-z-25.0)*0.10; return r;}`;
-  const h=(x,z)=>2.6*Math.sin(x*.11)*Math.cos(z*.09)+1.6*Math.sin(x*.23+z*.17+1.3)+.8*Math.sin(x*.47-z*.31)+.35*Math.sin(x*.9+z*.7)+Math.max(0,-z-25)*.10;
-  const sun=new THREE.Vector3(28,7,-140);
+try{renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!mobile,powerPreference:'high-performance'});}catch(e){canvas.remove();}
+let broken=false;
+if(renderer){renderer.setClearColor(0x000000,0);renderer.debug.onShaderError=()=>{broken=true;};
+renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:1.75));
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(mobile?70:52,1,.1,1200);
 
-  const seg=mobile?150:240;
-  const geo=new THREE.PlaneGeometry(240,170,seg,seg); geo.rotateX(-Math.PI/2); geo.translate(10,0,-60);
-  const terrainMat=new THREE.ShaderMaterial({
-    transparent:true,
-    uniforms:{uCam:{value:new THREE.Vector3()},uSun:{value:sun}},
-    vertexShader:GLSL_H+`varying float vH;varying vec3 vW;
-      void main(){vec3 p=position;p.y=hgt(p.xz);vH=p.y;vec4 w=modelMatrix*vec4(p,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
-    fragmentShader:`uniform vec3 uCam;uniform vec3 uSun;varying float vH;varying vec3 vW;
-      void main(){
-        vec3 n=normalize(cross(dFdx(vW),dFdy(vW))); if(n.y<0.)n=-n;
-        vec3 L=normalize(uSun-vW); float diff=clamp(dot(n,L),0.,1.);
-        vec3 base=mix(vec3(.075,.068,.06),vec3(.27,.21,.15),pow(diff,1.5));
-        float k=vH*1.15; float w=fwidth(k);
-        float minor=1.-smoothstep(0.,w*1.3,abs(fract(k+.5)-.5));
-        float k5=k/5.; float w5=fwidth(k5);
-        float major=1.-smoothstep(0.,w5*1.6,abs(fract(k5+.5)-.5));
-        vec3 lineCol=mix(vec3(.96,.89,.70),vec3(.86,.52,.25),clamp((vW.x+30.)/110.,0.,1.));
-        float dist=length(vW-uCam);
-        float fade=1.-smoothstep(35.,150.,dist);
-        vec3 col=base+lineCol*(minor*.35+major*.75)*(.45+.55*diff)*(.35+.65*fade);
-        vec3 V=normalize(vW-uCam); float g=pow(max(dot(V,normalize(uSun-uCam)),0.),10.);
-        col+=vec3(.86,.52,.25)*g*.55;
-        float a=1.-smoothstep(85.,165.,dist);
-        gl_FragColor=vec4(col,a);
-      }`
-  });
-  scene.add(new THREE.Mesh(geo,terrainMat));
+// ---------- world ----------
+const GH=`float baseH(float x,float z){return 2.4*sin(x*0.09)*cos(z*0.07)+1.5*sin(x*0.21+z*0.13+1.3)+0.7*sin(x*0.43-z*0.29)+0.3*sin(x*0.9+z*0.7);}
+float hgt(vec2 p){float x=p.x,z=p.y;float lake=1.0-smoothstep(12.0,26.0,length(vec2(x*0.8,z-18.0)));
+return baseH(x,z)+max(0.0,-z-40.0)*0.075+2.2-lake*10.0;}`;
+const ss=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);};
+const baseH=(x,z)=>2.4*Math.sin(x*.09)*Math.cos(z*.07)+1.5*Math.sin(x*.21+z*.13+1.3)+.7*Math.sin(x*.43-z*.29)+.3*Math.sin(x*.9+z*.7);
+const H=(x,z)=>{const lake=1-ss(12,26,Math.hypot(x*.8,z-18));return baseH(x,z)+Math.max(0,-z-40)*.075+2.2-lake*10;};
 
-  // route: nage -> vélo -> course
-  const pts=[];
-  for(let i=0;i<=80;i++){const t=i/80;const z=16-t*100;const x=-10+11*Math.sin(t*5.2)+t*22;pts.push(new THREE.Vector3(x,h(x,z)+.45,z));}
-  const curve=new THREE.CatmullRomCurve3(pts);
-  const tube=new THREE.TubeGeometry(curve,600,mobile?.2:.16,10,false);
-  const routeMat=new THREE.ShaderMaterial({
-    transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
-    uniforms:{uProg:{value:0}},
-    vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-    fragmentShader:`uniform float uProg;varying vec2 vUv;
-      void main(){float x=vUv.x; if(x>uProg) discard;
-        vec3 c=x<.16?vec3(.96,.93,.86):(x<.62?vec3(.95,.87,.64):vec3(.86,.48,.22));
-        float head=smoothstep(uProg-.05,uProg,x);
-        gl_FragColor=vec4(c*(1.+1.6*head),.95);}`
-  });
-  scene.add(new THREE.Mesh(tube,routeMat));
+const U={uSunDir:{value:new THREE.Vector3(.25,.08,-1).normalize()},uSunCol:{value:new THREE.Color()},uHor:{value:new THREE.Color()},uZen:{value:new THREE.Color()},uCam:{value:new THREE.Vector3()},uTime:{value:0}};
+const FOG=`vec3 fogc(vec3 col,vec3 w){float d=length(w-uCam);vec3 V=normalize(w-uCam);float s=max(dot(V,uSunDir),0.0);
+vec3 f=uHor+uSunCol*pow(s,8.0)*0.35;return mix(col,f,smoothstep(30.0,330.0,d));}`;
+const HEAD=`uniform vec3 uSunDir;uniform vec3 uSunCol;uniform vec3 uHor;uniform vec3 uZen;uniform vec3 uCam;uniform float uTime;`;
 
-  // glowing head
-  const gc=document.createElement('canvas');gc.width=gc.height=128;const gx=gc.getContext('2d');
-  const gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,240,205,1)');gr.addColorStop(.25,'rgba(243,200,130,.75)');gr.addColorStop(1,'rgba(200,118,58,0)');
-  gx.fillStyle=gr;gx.fillRect(0,0,128,128);
-  const head=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-  head.scale.set(3.2,3.2,1);scene.add(head);
+// sky
+const sky=new THREE.Mesh(new THREE.SphereGeometry(800,32,16),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:U,
+ vertexShader:`varying vec3 vD;void main(){vD=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+ fragmentShader:HEAD+`varying vec3 vD;void main(){vec3 d=normalize(vD);float y=d.y;
+ vec3 c=mix(uHor,uZen,smoothstep(-0.02,0.5,y)); if(y<0.0)c=uHor*0.7;
+ float s=max(dot(d,uSunDir),0.0); c+=uSunCol*(pow(s,1400.0)*2.4+pow(s,90.0)*0.45+pow(s,8.0)*0.22);
+ gl_FragColor=vec4(c,1.);}`}));
+sky.renderOrder=-2; scene.add(sky);
 
-  // sun disc
-  const sc=document.createElement('canvas');sc.width=sc.height=256;const sx=sc.getContext('2d');
-  const sg=sx.createRadialGradient(128,128,0,128,128,128);sg.addColorStop(0,'rgba(255,232,190,1)');sg.addColorStop(.18,'rgba(250,206,140,.9)');sg.addColorStop(.45,'rgba(220,140,70,.35)');sg.addColorStop(1,'rgba(200,118,58,0)');
-  sx.fillStyle=sg;sx.fillRect(0,0,256,256);
-  const sunSpr=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
-  sunSpr.position.copy(sun);sunSpr.scale.set(70,70,1);sunSpr.material.depthTest=false;sunSpr.renderOrder=-1;scene.add(sunSpr);
+// terrain
+const seg=mobile?170:280;
+const tg=new THREE.PlaneGeometry(300,300,seg,seg); tg.rotateX(-Math.PI/2); tg.translate(0,0,-90);
+scene.add(new THREE.Mesh(tg,new THREE.ShaderMaterial({uniforms:U,
+ vertexShader:GH+`varying float vH;varying vec3 vW;void main(){vec3 p=position;p.y=hgt(p.xz);vH=p.y;vec4 w=modelMatrix*vec4(p,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+ fragmentShader:HEAD+FOG+`varying float vH;varying vec3 vW;void main(){
+  vec3 n=normalize(cross(dFdx(vW),dFdy(vW)));if(n.y<0.)n=-n;
+  float diff=clamp(dot(n,normalize(uSunDir+vec3(0.,0.25,0.))),0.,1.);
+  vec3 base=mix(vec3(.06,.055,.05),vec3(.30,.23,.16),pow(diff,1.4));
+  float k=vH*1.1;float w=fwidth(k);float minor=1.-smoothstep(0.,w*1.3,abs(fract(k+.5)-.5));
+  float k5=k/5.;float w5=fwidth(k5);float major=1.-smoothstep(0.,w5*1.6,abs(fract(k5+.5)-.5));
+  vec3 lc=mix(vec3(.96,.89,.70),uSunCol,.45);
+  vec3 col=base+lc*(minor*.22+major*.55)*(.35+.65*diff);
+  gl_FragColor=vec4(fogc(col,vW),1.);}`})));
 
-  const camBase=mobile?new THREE.Vector3(6,13,30):new THREE.Vector3(2,10,26);
-  const look=new THREE.Vector3(8,1,-42);
-  let mx=0,my=0,tx=0,ty=0;
-  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);},{passive:true});
-  function resize(){const w=canvas.clientWidth,hh=canvas.clientHeight;renderer.setSize(w,hh,false);camera.aspect=w/hh;camera.updateProjectionMatrix();}
-  addEventListener('resize',()=>{resize();if(reduce)draw(0);});resize();
-  let visible=true;
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!reduce)loop();}).observe(canvas);
-  function draw(t){
-    mx+=(tx-mx)*.04;my+=(ty-my)*.04;
-    camera.position.set(camBase.x+mx*6+Math.sin(t*.00012)*1.5,camBase.y-my*2.5+Math.sin(t*.0002)*.4,camBase.z);
-    camera.lookAt(look);
-    terrainMat.uniforms.uCam.value.copy(camera.position);
-    const p=reduce?1:Math.min(1,((t*.00006)%1.25));
-    routeMat.uniforms.uProg.value=p;
-    head.position.copy(curve.getPointAt(Math.max(.001,Math.min(.999,p))));head.position.y+=.2;
-    head.material.opacity=reduce||p>=1?0:1;
-    renderer.render(scene,camera);
-  }
-  let raf=0;
-  function loop(){cancelAnimationFrame(raf);const f=t=>{if(!visible)return;draw(t);raf=requestAnimationFrame(f);};raf=requestAnimationFrame(f);}
-  if(reduce)draw(0);else loop();
+// water
+const wg=new THREE.PlaneGeometry(130,96,1,1); wg.rotateX(-Math.PI/2); wg.translate(0,0,18);
+scene.add(new THREE.Mesh(wg,new THREE.ShaderMaterial({uniforms:U,
+ vertexShader:`varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+ fragmentShader:HEAD+FOG+`varying vec3 vW;
+ vec2 wv(vec2 p,vec2 d,float f,float a,float s){float ph=dot(d,p)*f+uTime*s;return d*(a*f*cos(ph));}
+ void main(){vec2 p=vW.xz;vec2 g=wv(p,normalize(vec2(1.,.3)),.9,.05,1.3)+wv(p,normalize(vec2(-.4,1.)),1.7,.025,1.9)+wv(p,normalize(vec2(.7,-.6)),3.3,.012,2.7)+wv(p,normalize(vec2(-.9,-.2)),6.1,.006,3.4);
+  vec3 n=normalize(vec3(-g.x,1.,-g.y));vec3 V=normalize(uCam-vW);
+  float fr=pow(1.-max(dot(n,V),0.),3.);vec3 R=reflect(-V,n);
+  vec3 sk=mix(uHor,uZen,smoothstep(0.,.5,R.y));float s=max(dot(R,uSunDir),0.);
+  vec3 col=mix(vec3(.025,.024,.022),sk,.18+.7*fr)+uSunCol*(pow(s,420.)*7.+pow(s,40.)*.35);
+  gl_FragColor=vec4(fogc(col,vW),1.);}`})));
+
+// ---------- route ----------
+const swim=[],bike=[],run=[];
+for(let i=0;i<=14;i++){const t=i/14,z=36-t*32;swim.push(new THREE.Vector3(-6+4*Math.sin(t*3),.22,z));}
+const sm=(x,z)=>(H(x,z)+H(x,z-2)+H(x,z+2)+H(x-2,z)+H(x+2,z))/5;
+for(let i=1;i<=40;i++){const t=i/40,z=4-t*120,x=-6+4*Math.sin(3)+14*Math.sin((4-z)*.035);bike.push(new THREE.Vector3(x,Math.max(sm(x,z),0)+.25,z));}
+const bl=bike[bike.length-1];
+for(let i=1;i<=16;i++){const t=i/16,z=bl.z-t*48,x=bl.x+6*Math.sin(t*4)+t*5;run.push(new THREE.Vector3(x,sm(x,z)+.22,z));}
+const pts=[...swim,...bike,...run];
+const len=a=>{let s=0;for(let i=1;i<a.length;i++)s+=a[i].distanceTo(a[i-1]);return s;};
+const L1=len(swim),L2=len([swim[swim.length-1],...bike]),L3=len([bl,...run]),LT=L1+L2+L3;
+const uSwim=L1/LT,uBike=(L1+L2)/LT;
+const curve=new THREE.CatmullRomCurve3(pts,false,'centripetal');
+
+const RU={uSwim:{value:uSwim},uBike:{value:uBike},uHeadU:{value:0}};
+scene.add(new THREE.Mesh(new THREE.TubeGeometry(curve,1200,mobile?.16:.12,8,false),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:RU,
+ vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+ fragmentShader:`uniform float uSwim,uBike,uHeadU;varying vec2 vUv;void main(){float x=vUv.x;
+  if(x>uSwim&&x<uBike)discard; if(x>uBike&&fract(x*520.)>.55)discard;
+  vec3 c=x<uSwim?vec3(.97,.93,.85):vec3(.92,.52,.24);
+  float near=exp(-abs(x-uHeadU)*60.);gl_FragColor=vec4(c*(.55+1.4*near),.9);}`})));
+
+// road ribbon
+{const N=mobile?500:800,w=1.5,pos=[],uv=[],idx=[];const up=new THREE.Vector3(0,1,0);
+ for(let i=0;i<=N;i++){const u=uSwim+(uBike-uSwim)*i/N,p=curve.getPointAt(u),t=curve.getTangentAt(u),s=new THREE.Vector3().crossVectors(t,up).normalize();
+  const lx=p.x+s.x*w,lz=p.z+s.z*w,rx=p.x-s.x*w,rz=p.z-s.z*w;const y=Math.max(H(lx,lz),H(rx,rz),H(p.x,p.z),.15)+.1;
+  pos.push(lx,y,lz,rx,y,rz);uv.push(i/N,0,i/N,1);if(i<N){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2);}}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));g.setIndex(idx);
+ const roadLen=L2;
+ scene.add(new THREE.Mesh(g,new THREE.ShaderMaterial({side:THREE.DoubleSide,uniforms:Object.assign({uLen:{value:roadLen}},U),
+  vertexShader:`varying vec2 vUv;varying vec3 vW;void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+  fragmentShader:HEAD+FOG+`uniform float uLen;varying vec2 vUv;varying vec3 vW;void main(){
+   vec3 c=vec3(.055,.05,.046);float e=min(vUv.y,1.-vUv.y);c+=vec3(.6,.56,.48)*(1.-smoothstep(.02,.05,e))*.5;
+   float dash=step(fract(vUv.x*uLen/3.2),.5)*(1.-smoothstep(.015,.03,abs(vUv.y-.5)));c+=vec3(.95,.87,.64)*dash*.9;
+   gl_FragColor=vec4(fogc(c,vW),1.);}`})));}
+
+// athlete glow
+const gc=document.createElement('canvas');gc.width=gc.height=128;const gx=gc.getContext('2d');
+const gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,244,215,1)');gr.addColorStop(.22,'rgba(245,205,140,.8)');gr.addColorStop(1,'rgba(200,118,58,0)');gx.fillStyle=gr;gx.fillRect(0,0,128,128);
+const athlete=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+athlete.scale.set(2.4,2.4,1);scene.add(athlete);
+
+// ---------- light over the day ----------
+const dawn={s:new THREE.Color(1.0,.84,.60),h:new THREE.Color(.27,.21,.17),z:new THREE.Color(.075,.072,.07),e:.11};
+const dusk={s:new THREE.Color(1.0,.56,.26),h:new THREE.Color(.40,.21,.12),z:new THREE.Color(.07,.05,.045),e:.035};
+function light(k){U.uSunCol.value.copy(dawn.s).lerp(dusk.s,k);U.uHor.value.copy(dawn.h).lerp(dusk.h,k);U.uZen.value.copy(dawn.z).lerp(dusk.z,k);
+ U.uSunDir.value.set(.25+.15*k,dawn.e+(dusk.e-dawn.e)*k,-1).normalize();}
+
+// ---------- camera ----------
+let mx=0,my=0,tx=0,ty=0;addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
+const camPos=new THREE.Vector3(),camLook=new THREE.Vector3(),tmp=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
+function place(u,snap){
+ const a=curve.getPointAt(Math.max(0,u-.03)),b=curve.getPointAt(Math.min(1,u+.06)),t=curve.getTangentAt(Math.max(0,u-.03));
+ const side=new THREE.Vector3().crossVectors(t,up).normalize();
+ const lift=u<uSwim?1.1:(u<uBike?2.4:1.9);
+ tmp.copy(a).addScaledVector(up,lift).addScaledVector(side,1.4+mx*3);tmp.y+=-my*1.2;
+ tmp.y=Math.max(tmp.y,H(tmp.x,tmp.z)+.9,.6);
+ const look=b.clone().addScaledVector(up,.6);
+ if(snap){camPos.copy(tmp);camLook.copy(look);}else{camPos.lerp(tmp,.06);camLook.lerp(look,.06);}
+ camera.position.copy(camPos);camera.lookAt(camLook);
+ const ah=curve.getPointAt(u);athlete.position.set(ah.x,ah.y+.35,ah.z);
+ sky.position.copy(camPos);U.uCam.value.copy(camPos);RU.uHeadU.value=u;
+}
+
+// ---------- sync with headline ----------
+const words=[...document.querySelectorAll('.hl .w')],hud=[...document.querySelectorAll('.hud-item')],bars=hud.map(x=>x.querySelector('b'));
+let phase=-1;
+function sync(u){const p=u<uSwim?0:(u<uBike?1:2);
+ const f=p===0?u/uSwim:(p===1?(u-uSwim)/(uBike-uSwim):(u-uBike)/(1-uBike));
+ bars.forEach((b,i)=>{b.style.width=(i<p?100:(i===p?f*100:0))+'%';});
+ if(p!==phase){phase=p;words.forEach((w,i)=>w.classList.toggle('on',i===p));hud.forEach((x,i)=>x.classList.toggle('on',i===p));}}
+
+function resize(){const w=canvas.clientWidth,hh=canvas.clientHeight;renderer.setSize(w,hh,false);camera.aspect=w/hh;camera.updateProjectionMatrix();}
+addEventListener('resize',()=>{resize();if(reduce)still();});resize();
+
+const D=mobile?34000:40000,cut=document.querySelector('.cut');
+function still(){const u=(uSwim+uBike)/2;light(.5);place(u,true);renderer.render(scene,camera);}
+if(reduce){still();words.forEach(w=>w.classList.add('on'));}
+else{
+ hero.classList.add('playing');
+ let visible=true,raf=0,t0=performance.now(),first=true;
+ new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible){cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);}}).observe(canvas);
+ function frame(now){if(!visible||broken){if(broken){canvas.remove();hero.classList.remove('playing');}return;}
+  const u=((now-t0)%D)/D;
+  mx+=(tx-mx)*.04;my+=(ty-my)*.04;
+  U.uTime.value=now/1000;light(u);place(u,first||u<.004);first=false;sync(u);
+  cut.classList.toggle('on',u>.965);
+  renderer.render(scene,camera);raf=requestAnimationFrame(frame);}
+ raf=requestAnimationFrame(frame);
+}
 }
 </script>
 </body>
