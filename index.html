@@ -28,7 +28,7 @@ body{margin:0;background:var(--ink);color:var(--cream);font-family:var(--sans);f
 a{color:var(--cream)}
 a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .wrap{max-width:1240px;margin:0 auto;padding-inline:24px}
-.page{background:radial-gradient(1100px 680px at 82% 0%, rgba(226,150,74,.30) 0%, rgba(150,104,52,.14) 38%, rgba(22,21,19,0) 70%), var(--ink)}
+.page{background:var(--ink)}
 .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
 h1,h2,h3{font-family:var(--serif);font-weight:300;margin:0;text-wrap:balance;letter-spacing:-.01em}
 h2{font-size:clamp(40px,5.4vw,80px);line-height:1}
@@ -206,82 +206,177 @@ footer a:hover{color:var(--cream)}
   .hero{padding-block:40px 48px}
   form.app{padding:28px 18px}
 }
+
+/* ===== v2 : interactions ===== */
+.nav-bar{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s ease, backdrop-filter .3s ease, border-color .3s ease;border-bottom:1px solid transparent}
+.nav-bar.solid{background:rgba(22,21,19,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav-bar .nav{padding-block:20px}
+.hero3d{position:relative;min-height:min(940px,100svh);overflow:hidden;display:flex;align-items:flex-end;
+  background:radial-gradient(520px 260px at 72% 58%, rgba(243,180,110,.55) 0%, rgba(200,118,58,.28) 40%, rgba(200,118,58,0) 72%),
+             linear-gradient(180deg,#161513 0%,#1C1915 40%,#33261A 66%,#4E3420 82%,#2A2018 100%)}
+#terrain{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero3d::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(22,21,19,.82) 0%,rgba(22,21,19,.45) 42%,rgba(22,21,19,0) 70%)}
+.hero3d::after{content:"";position:absolute;inset:auto 0 0 0;height:220px;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(22,21,19,0),#161513)}
+.hero3d .wrap{position:relative;z-index:2;width:100%}
+.hero{padding-block:140px 56px}
+.hl > span{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.hl > span > span{display:inline-block}
+.legend3d{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.legend3d i{display:inline-block;width:18px;height:3px;border-radius:2px;margin-right:8px;vertical-align:middle}
+.scroll-hint{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.scroll-hint span{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding-block:22px;margin-top:0}
+.marquee .track{display:flex;width:max-content;gap:48px;animation:marq 38s linear infinite;font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,44px);white-space:nowrap}
+.marquee .track span:nth-child(even){font-style:italic;color:var(--gold)}
+@keyframes marq{to{transform:translateX(-50%)}}
+.week button.day{font:inherit;color:inherit;text-align:left;cursor:pointer;transition:border-color .2s ease, transform .2s ease, background .2s ease}
+.week button.day:hover{transform:translateY(-3px);border-color:var(--line2)}
+.week button.day[aria-pressed="true"]{border-color:var(--butter);background:#26231E}
+.week button.day.choice[aria-pressed="false"]{border-color:var(--gold)}
+.detail{margin-top:14px;border:1px solid var(--line2);border-radius:8px;padding:26px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px 40px;align-items:start;background:linear-gradient(120deg,var(--ink2),#26221C)}
+.detail h4{margin:0;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.1}
+.detail .meta{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.detail p{color:#D9D0BC}
+.detail .why{color:var(--muted);font-size:15px}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:4px;gap:4px}
+.seg button{font:600 13px var(--sans);letter-spacing:.06em;color:var(--muted);background:none;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--butter);color:var(--ink)}
+.card{position:relative;transform-style:preserve-3d;transition:transform .25s ease, box-shadow .25s ease;will-change:transform}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s ease;background:radial-gradient(260px 200px at var(--mx,50%) var(--my,50%),rgba(243,223,162,.35),rgba(243,223,162,0) 70%)}
+.card:hover::before{opacity:1}
+.card:hover{box-shadow:0 24px 60px -24px rgba(22,21,19,.45)}
+.card > *{position:relative}
+.steps-wrap{position:relative;margin-top:64px}
+.steps-line{position:absolute;left:0;right:0;top:0;height:2px;background:var(--butter);transform:scaleX(0);transform-origin:left}
+.steps-wrap .steps{margin-top:0}
+.magnet{will-change:transform}
+@media (prefers-reduced-motion: reduce){
+  .marquee .track,.scroll-hint span{animation:none}
+  .steps-line{transform:none}
+}
+@media (max-width:760px){
+  .hero3d::before{background:linear-gradient(180deg,rgba(22,21,19,.35) 0%,rgba(22,21,19,.65) 60%,rgba(22,21,19,.85) 100%)}
+  .hero{padding-block:120px 40px}
+}
+
+@media (max-width:760px){
+  .nav-links a:not(.nav-cta){display:none}
+  .nav-bar .nav{padding-block:14px;flex-wrap:nowrap}
+  .brand{font-size:15px;letter-spacing:.24em}
+}
+.seg{align-self:flex-start}
+@media (max-width:520px){
+  .week{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px;margin-inline:-24px;padding-inline:24px;scrollbar-width:none}
+  .week::-webkit-scrollbar{display:none}
+  .week .day{flex:0 0 46%;scroll-snap-align:start;min-height:170px}
+}
 </style>
 </head>
 <body>
 <div class="page">
-  <div class="wrap">
-    <header class="nav">
-      <a class="brand" href="#top">NOAH BROSSEAU</a>
-      <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#methode">Méthode</a>
-        <a href="#offres">Offres</a>
-        <a href="#processus">Processus</a>
-        <a href="#faq">FAQ</a>
-        <a class="nav-cta" href="#postuler">Postuler</a>
-      </nav>
-    </header>
+  <div class="nav-bar" id="navbar">
+    <div class="wrap">
+      <header class="nav">
+        <a class="brand" href="#top">NOAH BROSSEAU</a>
+        <nav class="nav-links" aria-label="Navigation principale">
+          <a href="#methode">Méthode</a>
+          <a href="#offres">Offres</a>
+          <a href="#processus">Processus</a>
+          <a href="#faq">FAQ</a>
+          <a class="nav-cta" href="#postuler">Postuler</a>
+        </nav>
+      </header>
+    </div>
+  </div>
 
-    <section id="top" class="hero">
-      <div class="eyebrow">Coaching triathlon · Estrie · en ligne partout au Québec</div>
-      <h1>Nage.<br>Roule.<br>Cours.<br><em>Avec intention.</em></h1>
-      <div class="hero-row">
-        <p class="lead">Un entraînement bâti par un kinésiologue qui court les mêmes courses que toi. Structuré par la science, construit autour de ta vraie vie, fait pour durer.</p>
-        <div class="ctas">
-          <a class="btn btn-primary" href="#postuler">Postuler
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn-ghost" href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon">Appel gratuit</a>
+  <section id="top" class="hero3d">
+    <canvas id="terrain" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero">
+        <div class="eyebrow fade">Coaching triathlon · Estrie · en ligne partout au Québec</div>
+        <h1 class="hl"><span><span>Nage.</span></span><span><span>Roule.</span></span><span><span>Cours.</span></span><span><span><em>Avec intention.</em></span></span></h1>
+        <div class="hero-row">
+          <p class="lead fade">Un entraînement bâti par un kinésiologue qui court les mêmes courses que toi. Structuré par la science, construit autour de ta vraie vie, fait pour durer.</p>
+          <div class="ctas fade">
+            <a class="btn btn-primary magnet" href="#postuler">Postuler
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="https://calendly.com/brosseaunoah/appel-decouverte-coaching-triathlon">Appel gratuit</a>
+          </div>
+        </div>
+        <div class="hero-row fade" style="align-items:center">
+          <div class="legend3d"><span><i style="background:#F4ECDC"></i>Nage</span><span><i style="background:#F3DFA2"></i>Vélo</span><span><i style="background:#C8763A"></i>Course</span></div>
+          <div class="scroll-hint"><span></span>Défiler</div>
         </div>
       </div>
-      <div class="proof">
-        <div><b>Kinésiologie</b><span>Université de Sherbrooke</span></div>
-        <div><b>Triathlète</b><span>Compétiteur · Triathlon Québec</span></div>
-        <div><b>Plans flexibles</b><span>Temps + intensité, jamais figés</span></div>
-        <div><b>Réponse en 24 h</b><span>Par une vraie personne : moi</span></div>
-      </div>
-    </section>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>Nage</span><span>Vélo</span><span>Course</span><span>Récupération</span><span>Mental</span><span>Constance</span>
+    <span>Nage</span><span>Vélo</span><span>Course</span><span>Récupération</span><span>Mental</span><span>Constance</span>
+  </div></div>
+
+  <div class="wrap">
+    <div class="proof" data-reveal style="border-top:0">
+      <div><b>Kinésiologie</b><span>Université de Sherbrooke</span></div>
+      <div><b>Triathlète</b><span>Compétiteur · Triathlon Québec</span></div>
+      <div><b>Plans flexibles</b><span>Temps + intensité, jamais figés</span></div>
+      <div><b>Réponse en 24 h</b><span>Par une vraie personne : moi</span></div>
+    </div>
 
     <div class="dist">
-      <div><small>Nage</small><strong>1,9<span> km</span></strong></div>
-      <div><small>Vélo</small><strong>90<span> km</span></strong></div>
-      <div><small>Course</small><strong>21,1<span> km</span></strong></div>
+      <div><small>Nage</small><strong><b class="count" data-to="1.9" data-dec="1" style="font-weight:300">1,9</b><span> km</span></strong></div>
+      <div><small>Vélo</small><strong><b class="count" data-to="90" data-dec="0" style="font-weight:300">90</b><span> km</span></strong></div>
+      <div><small>Course</small><strong><b class="count" data-to="21.1" data-dec="1" style="font-weight:300">21,1</b><span> km</span></strong></div>
     </div>
     <div class="dist-cap">Du premier sprint au demi-Ironman</div>
 
     <section class="manifesto">
-      <p>La performance ne vient pas du plan le plus dur. Elle vient du plan <em>que tu vas vraiment suivre</em>, semaine après semaine, saison après saison.</p>
+      <p data-reveal>La performance ne vient pas du plan le plus dur. Elle vient du plan <em>que tu vas vraiment suivre</em>, semaine après semaine, saison après saison.</p>
     </section>
 
     <section id="methode">
       <div class="eyebrow">La méthode</div>
       <h2 style="margin-top:18px">Trois piliers.<br><em>Zéro séance inutile.</em></h2>
-      <div class="pillars">
+      <div class="pillars" data-reveal>
         <article><div class="n">01</div><h3>Physiologie</h3><p class="muted">Zones, charge, récupération. Chaque séance a une raison d'exister, fondée sur la kinésiologie et la recherche, pas sur la mode.</p></article>
         <article><div class="n">02</div><h3>Flexibilité</h3><p class="muted">Des blocs en temps et en intensité, des choix dans ta semaine. Ton plan s'adapte à ton horaire au lieu de s'effondrer au premier imprévu.</p></article>
         <article><div class="n">03</div><h3>Mental</h3><p class="muted">Motivation, gestion de course, constance. La psychologie du sport fait partie de l'entraînement, pas d'un extra.</p></article>
       </div>
 
-      <div class="week-head">
+      <div class="week-head" data-reveal>
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="eyebrow">À quoi ça ressemble</div>
           <h2 style="font-size:clamp(34px,4.4vw,60px)">Ton plan plie. <em>Il ne casse pas.</em></h2>
         </div>
         <p class="muted" style="max-width:440px">Chaque séance est prescrite en durée et en intensité sur 10. Certains jours, c'est toi qui choisis. Exemple d'une semaine de développement d'environ 6 h.</p>
       </div>
-      <div class="week">
-        <div class="day rest"><div class="d">LUN</div><div class="s">Repos</div><div class="m">Mobilité 15 min</div><div class="bar"><i style="width:10%"></i></div></div>
-        <div class="day"><div class="d">MAR</div><div class="s">Course</div><div class="m">45 min · 6/10<br>Intervalles</div><div class="bar"><i style="width:60%"></i></div></div>
-        <div class="day choice"><div class="d">MER</div><div class="or">Au choix</div><div class="s">Nage 40 min</div><div class="m">ou muscu complète 45 min · 5/10</div><div class="bar"><i style="width:50%"></i></div></div>
-        <div class="day"><div class="d">JEU</div><div class="s">Vélo</div><div class="m">60 min · 4/10<br>Endurance</div><div class="bar"><i style="width:40%"></i></div></div>
-        <div class="day rest"><div class="d">VEN</div><div class="s">Repos</div><div class="m">Récupération complète</div><div class="bar"><i style="width:0%"></i></div></div>
-        <div class="day"><div class="d">SAM</div><div class="s">Vélo long</div><div class="m">2 h · 4/10<br>+ course 15 min</div><div class="bar"><i style="width:45%"></i></div></div>
-        <div class="day"><div class="d">DIM</div><div class="s">Course longue</div><div class="m">70 min · 3/10<br>Facile, conversationnel</div><div class="bar"><i style="width:30%"></i></div></div>
+      <div class="week" role="group" aria-label="Semaine type, choisis un jour">
+        <button type="button" class="day rest" data-day="lun" aria-pressed="false"><span class="d">LUN</span><span class="s">Repos</span><span class="m">Mobilité 15 min</span><span class="bar"><i style="width:10%"></i></span></button>
+        <button type="button" class="day" data-day="mar" aria-pressed="true"><span class="d">MAR</span><span class="s">Course</span><span class="m">45 min · 6/10<br>Intervalles</span><span class="bar"><i style="width:60%"></i></span></button>
+        <button type="button" class="day choice" data-day="mer" aria-pressed="false"><span class="d">MER</span><span class="or">Au choix</span><span class="s" id="mer-s">Nage 40 min</span><span class="m" id="mer-m">ou muscu 45 min · 5/10</span><span class="bar"><i style="width:50%"></i></span></button>
+        <button type="button" class="day" data-day="jeu" aria-pressed="false"><span class="d">JEU</span><span class="s">Vélo</span><span class="m">60 min · 4/10<br>Endurance</span><span class="bar"><i style="width:40%"></i></span></button>
+        <button type="button" class="day rest" data-day="ven" aria-pressed="false"><span class="d">VEN</span><span class="s">Repos</span><span class="m">Récupération complète</span><span class="bar"><i style="width:0%"></i></span></button>
+        <button type="button" class="day" data-day="sam" aria-pressed="false"><span class="d">SAM</span><span class="s">Vélo long</span><span class="m">2 h · 4/10<br>+ course 15 min</span><span class="bar"><i style="width:45%"></i></span></button>
+        <button type="button" class="day" data-day="dim" aria-pressed="false"><span class="d">DIM</span><span class="s">Course longue</span><span class="m">70 min · 3/10<br>Facile</span><span class="bar"><i style="width:30%"></i></span></button>
       </div>
-      <div class="legend"><span>Barre dorée : intensité de la séance</span><span>Contour doré : tu choisis selon ta semaine</span></div>
+      <div class="detail" id="detail" aria-live="polite">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="meta" id="d-meta">Mardi · 45 min · 6/10</div>
+          <h4 id="d-title">Course, intervalles</h4>
+          <div class="seg" id="d-seg" hidden role="group" aria-label="Choix du mercredi"><button type="button" data-opt="nage" aria-pressed="true">Nage</button><button type="button" data-opt="muscu" aria-pressed="false">Muscu</button></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p id="d-what">6 × 3 min à ton allure de 10 km, 2 min de récupération au trot entre chaque.</p>
+          <p class="why" id="d-why">Pourquoi : développe la vitesse au seuil sans t'épuiser pour le reste de la semaine.</p>
+        </div>
+      </div>
+            <div class="legend"><span>Touche un jour pour voir la séance</span><span>Barre dorée : intensité</span><span>Contour doré : c'est toi qui choisis</span></div>
     </section>
 
-    <section class="fit" aria-label="Pour qui">
+    <section class="fit" aria-label="Pour qui" data-reveal>
       <article class="yes">
         <div class="eyebrow">C'est pour toi si</div>
         <ul>
@@ -303,7 +398,7 @@ footer a:hover{color:var(--cream)}
 
     <section class="coach">
       <div class="mono" aria-hidden="true">N<span>b</span></div>
-      <div class="coach-text">
+      <div class="coach-text" data-reveal>
         <div class="eyebrow">Ton coach</div>
         <h2>Noah<br>Brosseau</h2>
         <p class="lead" style="max-width:none">Triathlète compétitif, ancien joueur de soccer et étudiant en kinésiologie à l'Université de Sherbrooke. J'entraîne des athlètes de l'Estrie qui veulent progresser sans sacrifier le reste de leur vie.</p>
@@ -324,7 +419,7 @@ footer a:hover{color:var(--cream)}
         <p>Des prix clairs, sans frais d'ouverture. Aucun paiement avant notre appel découverte.</p>
       </div>
       <div class="cards">
-        <article class="card">
+        <article class="card" data-tilt>
           <div class="tag">Pour te situer</div>
           <h3>Bilan performance</h3>
           <div class="price">99 $ <small>· 90 min</small></div>
@@ -332,7 +427,7 @@ footer a:hover{color:var(--cream)}
           <ul><li>Tests terrain course et vélo</li><li>Zones de FC et d'allure</li><li>Dépistage mobilité et blessures</li><li>Rapport écrit et priorités</li></ul>
           <a class="pick" href="#postuler" data-offre="Bilan performance">Choisir le bilan →</a>
         </article>
-        <article class="card">
+        <article class="card" data-tilt>
           <div class="tag">Pour une course</div>
           <h3>Plan objectif course</h3>
           <div class="price">199 $ <small>· 12 sem.</small></div>
@@ -340,7 +435,7 @@ footer a:hover{color:var(--cream)}
           <ul><li>Appel de départ</li><li>Plan nage · vélo · course · muscu</li><li>Révision à la 6ᵉ semaine</li><li>Stratégie de course et nutrition</li></ul>
           <a class="pick" href="#postuler" data-offre="Plan objectif course">Choisir le plan →</a>
         </article>
-        <article class="card">
+        <article class="card" data-tilt>
           <div class="tag">Suivi</div>
           <h3>Coaching Essentiel</h3>
           <div class="price">129 $ <small>/ mois</small></div>
@@ -348,13 +443,13 @@ footer a:hover{color:var(--cream)}
           <ul><li>Bilan de départ inclus</li><li>Plan ajusté aux 2 semaines</li><li>Messagerie, réponse en 48 h</li><li>Bilan mensuel écrit</li></ul>
           <a class="pick" href="#postuler" data-offre="Coaching Essentiel">Choisir l'Essentiel →</a>
         </article>
-        <article class="card feat">
+        <article class="card feat" data-tilt>
           <div class="tag">Le plus choisi</div>
           <h3>Coaching Performance</h3>
           <div class="price">189 $ <small>/ mois</small></div>
           <p>Le suivi complet : ton plan bouge chaque semaine avec ta vie, ta forme et tes données.</p>
           <ul><li>Tout l'Essentiel, plus :</li><li>Ajustement chaque semaine</li><li>Analyse Strava / Garmin</li><li>Musculation et prévention</li><li>Appel vidéo mensuel</li><li>Messagerie, réponse en 24 h</li></ul>
-          <a class="btn btn-primary" href="#postuler" data-offre="Coaching Performance">Postuler</a>
+          <a class="btn btn-primary magnet" href="#postuler" data-offre="Coaching Performance">Postuler</a>
         </article>
       </div>
       <div class="terms">
@@ -369,12 +464,13 @@ footer a:hover{color:var(--cream)}
     <div class="wrap">
       <div class="eyebrow" style="color:var(--butter)">Le processus</div>
       <h2 style="margin-top:18px">De ta candidature<br>à ta <em style="color:var(--butter)">première séance</em>.</h2>
+      <div class="steps-wrap"><div class="steps-line" id="steps-line"></div>
       <div class="steps">
         <article><div class="n">1</div><div class="when">3 minutes</div><b>Tu postules</b><p>Ton objectif, ta semaine type, ton niveau. Juste assez pour que notre premier échange soit utile.</p></article>
         <article><div class="n">2</div><div class="when">En 24 h</div><b>Je te réponds</b><p>Je lis tout moi-même et je te dis honnêtement si je suis le bon coach pour toi. Par texto ou par courriel, comme tu préfères.</p></article>
         <article><div class="n">3</div><div class="when">20 minutes</div><b>Appel découverte</b><p>On choisit l'offre ensemble et on fixe tes priorités. Gratuit, sans engagement.</p></article>
         <article><div class="n">4</div><div class="when">En 5 jours</div><b>Ton plan est prêt</b><p>Bâti pour toi, ajusté dès ta première semaine. Le paiement se fait seulement à cette étape.</p></article>
-      </div>
+      </div></div>
     </div>
   </section>
 
@@ -385,7 +481,7 @@ footer a:hover{color:var(--cream)}
         <h2>Avant de <em>commencer</em>.</h2>
         <p class="muted">Une autre question ? Écris-la dans ta candidature, je te réponds en 24 h.</p>
       </div>
-      <div class="faq-list">
+      <div class="faq-list" data-reveal>
         <details><summary>Je débute en triathlon. Est-ce pour moi ?</summary><p>Oui. Un premier sprint est un excellent objectif. On commence par ta base actuelle et on construit progressivement, en priorisant la technique de nage et la prévention des blessures.</p></details>
         <details><summary>Je n'ai que 5 ou 6 heures par semaine.</summary><p>C'est suffisant pour un sprint ou un olympique bien préparé. Le plan est bâti autour de tes heures réelles, pas d'un idéal qui ne tiendra pas.</p></details>
         <details><summary>Comment je reçois mon plan ?</summary><p>Dans un document clair, avec chaque séance en durée et en intensité. Avec le Coaching Performance, j'analyse aussi tes séances Strava ou Garmin chaque semaine.</p></details>
@@ -452,7 +548,7 @@ footer a:hover{color:var(--cream)}
         </label>
         <div class="form-foot">
           <small>Aucun paiement avant notre appel. Tes infos restent entre nous.</small>
-          <button class="btn btn-primary" type="submit">Envoyer ma candidature</button>
+          <button class="btn btn-primary magnet" type="submit">Envoyer ma candidature</button>
         </div>
       </form>
     </div>
@@ -471,13 +567,180 @@ footer a:hover{color:var(--cream)}
     </div>
   </footer>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-document.querySelectorAll('[data-offre]').forEach(function(a){
-  a.addEventListener('click',function(){var s=document.getElementById('offre');if(s){s.value=a.getAttribute('data-offre');}});
-});
-document.querySelector('form.app').addEventListener('submit',function(e){
-  if(!this.querySelector('input[name=sports]:checked')){e.preventDefault();var c=this.querySelector('.chips');c.scrollIntoView({block:'center'});c.style.outline='2px solid #E2C275';c.style.outlineOffset='6px';c.style.borderRadius='8px';}
-});
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+/* nav */
+var nav=document.getElementById('navbar');
+function onScroll(){nav.classList.toggle('solid',scrollY>40);}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* offers -> form */
+document.querySelectorAll('[data-offre]').forEach(function(a){a.addEventListener('click',function(){var s=document.getElementById('offre');if(s)s.value=a.getAttribute('data-offre');});});
+var form=document.querySelector('form.app');
+form.addEventListener('submit',function(e){if(!form.querySelector('input[name=sports]:checked')){e.preventDefault();var c=form.querySelector('.chips');c.scrollIntoView({block:'center'});c.style.outline='2px solid #E2C275';c.style.outlineOffset='6px';c.style.borderRadius='8px';}});
+
+/* interactive week */
+var D={
+ lun:['Lundi · 15 min · 1/10','Repos actif, mobilité','Hanches, chevilles, haut du dos. 15 minutes, sans effort.','Pourquoi : le repos fait partie du plan. C\'est là que ton corps s\'adapte.'],
+ mar:['Mardi · 45 min · 6/10','Course, intervalles','6 × 3 min à ton allure de 10 km, 2 min de récupération au trot entre chaque.','Pourquoi : développe la vitesse au seuil sans t\'épuiser pour le reste de la semaine.'],
+ mer_nage:['Mercredi · 40 min · 5/10','Nage, technique et volume','Éducatifs de technique, puis 10 × 100 m avec 20 s de récupération.','Pourquoi : en triathlon, l\'efficacité en nage économise ton énergie pour le vélo et la course.'],
+ mer_muscu:['Mercredi · 45 min · 5/10','Musculation complète','Fessiers, gainage, mollets et dos. Charges modérées, mouvements contrôlés.','Pourquoi : un corps solide encaisse mieux le volume de course et se blesse moins.'],
+ jeu:['Jeudi · 60 min · 4/10','Vélo, endurance','Zone 2 continue, cadence fluide autour de 85 à 90 tours par minute.','Pourquoi : construit ton moteur aérobie, la base de toutes les distances.'],
+ ven:['Vendredi · repos','Récupération complète','Sommeil, hydratation, alimentation. Aucune séance.','Pourquoi : arriver frais au bloc du week-end vaut plus qu\'une séance de plus.'],
+ sam:['Samedi · 2 h 15 · 4/10','Vélo long + transition','2 h de vélo en endurance, suivies de 15 min de course dès la descente du vélo.','Pourquoi : la brique vélo-course apprend à tes jambes à courir fatiguées, comme le jour J.'],
+ dim:['Dimanche · 70 min · 3/10','Course longue, facile','Allure conversationnelle du début à la fin. Si tu ne peux pas parler, ralentis.','Pourquoi : développe l\'endurance avec un minimum de stress sur les articulations.']
+};
+var merOpt='nage', cur='mar';
+var days=[].slice.call(document.querySelectorAll('.week .day')), seg=document.getElementById('d-seg');
+function show(k){
+  cur=k; var key=k==='mer'?'mer_'+merOpt:k, d=D[key];
+  document.getElementById('d-meta').textContent=d[0];document.getElementById('d-title').textContent=d[1];
+  document.getElementById('d-what').textContent=d[2];document.getElementById('d-why').textContent=d[3];
+  seg.hidden=k!=='mer';
+  days.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.day===k?'true':'false');});
+}
+days.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.day);});});
+[].forEach.call(seg.querySelectorAll('button'),function(b){b.addEventListener('click',function(){
+  merOpt=b.dataset.opt;[].forEach.call(seg.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+  document.getElementById('mer-s').textContent=merOpt==='nage'?'Nage 40 min':'Muscu 45 min';
+  document.getElementById('mer-m').textContent=merOpt==='nage'?'ou muscu 45 min · 5/10':'ou nage 40 min · 5/10';
+  show('mer');});});
+
+/* tilt + magnet (desktop only) */
+if(fine&&!reduce){
+  document.querySelectorAll('[data-tilt]').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      c.style.transform='perspective(900px) rotateX('+((.5-y)*7).toFixed(2)+'deg) rotateY('+((x-.5)*9).toFixed(2)+'deg) translateY(-4px)';
+      c.style.setProperty('--mx',(x*100)+'%');c.style.setProperty('--my',(y*100)+'%');});
+    c.addEventListener('pointerleave',function(){c.style.transform='';});
+  });
+  document.querySelectorAll('.magnet').forEach(function(m){
+    m.addEventListener('pointermove',function(e){var r=m.getBoundingClientRect();m.style.transform='translate('+((e.clientX-r.left-r.width/2)*.25).toFixed(1)+'px,'+((e.clientY-r.top-r.height/2)*.35).toFixed(1)+'px)';});
+    m.addEventListener('pointerleave',function(){m.style.transform='';});
+  });
+}
+
+/* scroll animations */
+if(window.gsap&&window.ScrollTrigger&&!reduce){
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.hl > span > span',{yPercent:115,duration:1.15,ease:'power4.out',stagger:.09,delay:.1});
+  gsap.from('.hero .fade',{opacity:0,y:24,duration:1,ease:'power3.out',stagger:.12,delay:.55});
+  gsap.utils.toArray('[data-reveal]').forEach(function(el){gsap.from(el,{y:46,opacity:0,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
+  gsap.utils.toArray('.count').forEach(function(el){var to=parseFloat(el.dataset.to),dec=+el.dataset.dec,o={v:0};
+    gsap.to(o,{v:to,duration:1.6,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 90%',once:true},onUpdate:function(){el.textContent=o.v.toFixed(dec).replace('.',',');}});});
+  gsap.from('.week .bar i',{width:0,duration:1.2,ease:'power2.out',stagger:.06,scrollTrigger:{trigger:'.week',start:'top 85%',once:true}});
+  gsap.from('.week .day',{y:30,opacity:0,duration:.8,ease:'power3.out',stagger:.06,scrollTrigger:{trigger:'.week',start:'top 85%',once:true}});
+  gsap.from('.cards .card',{y:50,opacity:0,duration:1,ease:'power3.out',stagger:.1,scrollTrigger:{trigger:'.cards',start:'top 85%',once:true},clearProps:'transform,opacity'});
+  gsap.to('#steps-line',{scaleX:1,ease:'none',scrollTrigger:{trigger:'.steps-wrap',start:'top 85%',end:'bottom 55%',scrub:true}});
+  gsap.from('.steps article',{y:30,opacity:0,duration:.9,ease:'power3.out',stagger:.15,scrollTrigger:{trigger:'.steps-wrap',start:'top 80%',once:true}});
+}else{var l=document.getElementById('steps-line');if(l)l.style.transform='none';}
+})();
+</script>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+const canvas=document.getElementById('terrain');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile=matchMedia('(max-width: 760px)').matches;
+let renderer;
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});}catch(e){canvas.remove();}
+if(renderer){
+  renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:2));
+  renderer.setClearColor(0x000000,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(mobile?64:48,1,.1,500);
+  const GLSL_H=`float hgt(vec2 p){float x=p.x,z=p.y;
+    float r=2.6*sin(x*0.11)*cos(z*0.09)+1.6*sin(x*0.23+z*0.17+1.3)+0.8*sin(x*0.47-z*0.31)+0.35*sin(x*0.9+z*0.7);
+    r+=max(0.0,-z-25.0)*0.10; return r;}`;
+  const h=(x,z)=>2.6*Math.sin(x*.11)*Math.cos(z*.09)+1.6*Math.sin(x*.23+z*.17+1.3)+.8*Math.sin(x*.47-z*.31)+.35*Math.sin(x*.9+z*.7)+Math.max(0,-z-25)*.10;
+  const sun=new THREE.Vector3(28,7,-140);
+
+  const seg=mobile?150:240;
+  const geo=new THREE.PlaneGeometry(240,170,seg,seg); geo.rotateX(-Math.PI/2); geo.translate(10,0,-60);
+  const terrainMat=new THREE.ShaderMaterial({
+    transparent:true,
+    uniforms:{uCam:{value:new THREE.Vector3()},uSun:{value:sun}},
+    vertexShader:GLSL_H+`varying float vH;varying vec3 vW;
+      void main(){vec3 p=position;p.y=hgt(p.xz);vH=p.y;vec4 w=modelMatrix*vec4(p,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+    fragmentShader:`uniform vec3 uCam;uniform vec3 uSun;varying float vH;varying vec3 vW;
+      void main(){
+        vec3 n=normalize(cross(dFdx(vW),dFdy(vW))); if(n.y<0.)n=-n;
+        vec3 L=normalize(uSun-vW); float diff=clamp(dot(n,L),0.,1.);
+        vec3 base=mix(vec3(.075,.068,.06),vec3(.27,.21,.15),pow(diff,1.5));
+        float k=vH*1.15; float w=fwidth(k);
+        float minor=1.-smoothstep(0.,w*1.3,abs(fract(k+.5)-.5));
+        float k5=k/5.; float w5=fwidth(k5);
+        float major=1.-smoothstep(0.,w5*1.6,abs(fract(k5+.5)-.5));
+        vec3 lineCol=mix(vec3(.96,.89,.70),vec3(.86,.52,.25),clamp((vW.x+30.)/110.,0.,1.));
+        float dist=length(vW-uCam);
+        float fade=1.-smoothstep(35.,150.,dist);
+        vec3 col=base+lineCol*(minor*.35+major*.75)*(.45+.55*diff)*(.35+.65*fade);
+        vec3 V=normalize(vW-uCam); float g=pow(max(dot(V,normalize(uSun-uCam)),0.),10.);
+        col+=vec3(.86,.52,.25)*g*.55;
+        float a=1.-smoothstep(85.,165.,dist);
+        gl_FragColor=vec4(col,a);
+      }`
+  });
+  scene.add(new THREE.Mesh(geo,terrainMat));
+
+  // route: nage -> vélo -> course
+  const pts=[];
+  for(let i=0;i<=80;i++){const t=i/80;const z=16-t*100;const x=-10+11*Math.sin(t*5.2)+t*22;pts.push(new THREE.Vector3(x,h(x,z)+.45,z));}
+  const curve=new THREE.CatmullRomCurve3(pts);
+  const tube=new THREE.TubeGeometry(curve,600,mobile?.2:.16,10,false);
+  const routeMat=new THREE.ShaderMaterial({
+    transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+    uniforms:{uProg:{value:0}},
+    vertexShader:`varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform float uProg;varying vec2 vUv;
+      void main(){float x=vUv.x; if(x>uProg) discard;
+        vec3 c=x<.16?vec3(.96,.93,.86):(x<.62?vec3(.95,.87,.64):vec3(.86,.48,.22));
+        float head=smoothstep(uProg-.05,uProg,x);
+        gl_FragColor=vec4(c*(1.+1.6*head),.95);}`
+  });
+  scene.add(new THREE.Mesh(tube,routeMat));
+
+  // glowing head
+  const gc=document.createElement('canvas');gc.width=gc.height=128;const gx=gc.getContext('2d');
+  const gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,240,205,1)');gr.addColorStop(.25,'rgba(243,200,130,.75)');gr.addColorStop(1,'rgba(200,118,58,0)');
+  gx.fillStyle=gr;gx.fillRect(0,0,128,128);
+  const head=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+  head.scale.set(3.2,3.2,1);scene.add(head);
+
+  // sun disc
+  const sc=document.createElement('canvas');sc.width=sc.height=256;const sx=sc.getContext('2d');
+  const sg=sx.createRadialGradient(128,128,0,128,128,128);sg.addColorStop(0,'rgba(255,232,190,1)');sg.addColorStop(.18,'rgba(250,206,140,.9)');sg.addColorStop(.45,'rgba(220,140,70,.35)');sg.addColorStop(1,'rgba(200,118,58,0)');
+  sx.fillStyle=sg;sx.fillRect(0,0,256,256);
+  const sunSpr=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+  sunSpr.position.copy(sun);sunSpr.scale.set(70,70,1);sunSpr.material.depthTest=false;sunSpr.renderOrder=-1;scene.add(sunSpr);
+
+  const camBase=mobile?new THREE.Vector3(6,13,30):new THREE.Vector3(2,10,26);
+  const look=new THREE.Vector3(8,1,-42);
+  let mx=0,my=0,tx=0,ty=0;
+  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);},{passive:true});
+  function resize(){const w=canvas.clientWidth,hh=canvas.clientHeight;renderer.setSize(w,hh,false);camera.aspect=w/hh;camera.updateProjectionMatrix();}
+  addEventListener('resize',()=>{resize();if(reduce)draw(0);});resize();
+  let visible=true;
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!reduce)loop();}).observe(canvas);
+  function draw(t){
+    mx+=(tx-mx)*.04;my+=(ty-my)*.04;
+    camera.position.set(camBase.x+mx*6+Math.sin(t*.00012)*1.5,camBase.y-my*2.5+Math.sin(t*.0002)*.4,camBase.z);
+    camera.lookAt(look);
+    terrainMat.uniforms.uCam.value.copy(camera.position);
+    const p=reduce?1:Math.min(1,((t*.00006)%1.25));
+    routeMat.uniforms.uProg.value=p;
+    head.position.copy(curve.getPointAt(Math.max(.001,Math.min(.999,p))));head.position.y+=.2;
+    head.material.opacity=reduce||p>=1?0:1;
+    renderer.render(scene,camera);
+  }
+  let raf=0;
+  function loop(){cancelAnimationFrame(raf);const f=t=>{if(!visible)return;draw(t);raf=requestAnimationFrame(f);};raf=requestAnimationFrame(f);}
+  if(reduce)draw(0);else loop();
+}
 </script>
 </body>
 </html>
