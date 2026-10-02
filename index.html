@@ -304,6 +304,23 @@ footer a:hover{color:var(--cream)}
 .apply::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,rgba(22,21,19,.82),rgba(22,21,19,.55))}
 .apply .wrap{position:relative;z-index:1}
 @media (max-width:760px){.band::before{background:linear-gradient(180deg,rgba(22,21,19,.1) 0%,rgba(22,21,19,.55) 45%,rgba(22,21,19,.92) 100%)}.band{align-items:flex-end;padding-bottom:56px}.band img{object-position:66% 30%}}
+
+/* ===== v6 ===== */
+.quote{padding-block:110px 40px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
+.q-line{width:1px;height:56px;background:linear-gradient(transparent,var(--gold))}
+.quote p{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(26px,3vw,40px);color:var(--cream);margin:0}
+.dist-wrap{margin-top:90px}
+.stages{display:inline-flex;flex-wrap:wrap;gap:4px;border:1px solid var(--line2);border-radius:999px;padding:4px}
+.stages button{font:600 13px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:none;border:0;border-radius:999px;padding:10px 18px;min-height:42px;cursor:pointer;transition:background .3s ease,color .3s ease}
+.stages button[aria-pressed="true"]{background:var(--butter);color:var(--ink)}
+.dist{margin-top:28px}
+.dv{font-weight:300;font-variant-numeric:tabular-nums}
+.dist-cap span{color:var(--gold)}
+.band::before{background:linear-gradient(90deg,rgba(22,21,19,.94) 0%,rgba(22,21,19,.82) 38%,rgba(22,21,19,.35) 70%,rgba(22,21,19,.1) 100%)!important}
+.band p{text-shadow:0 2px 28px rgba(0,0,0,.55)}
+@media (max-width:760px){.band::before{background:linear-gradient(180deg,rgba(22,21,19,.15) 0%,rgba(22,21,19,.7) 42%,rgba(22,21,19,.95) 100%)!important}}
+.band::before{z-index:1}.band .wrap{z-index:2}
+@media (max-width:520px){.stages button{padding:8px 11px;font-size:11px;letter-spacing:.06em}}
 </style>
 </head>
 <body>
@@ -346,10 +363,10 @@ footer a:hover{color:var(--cream)}
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="track">
-    <span>Nage</span><span>Vélo</span><span>Course</span><span>Récupération</span><span>Mental</span><span>Constance</span>
-    <span>Nage</span><span>Vélo</span><span>Course</span><span>Récupération</span><span>Mental</span><span>Constance</span>
-  </div></div>
+  <section class="quote" aria-label="Citation">
+    <span class="q-line" aria-hidden="true"></span>
+    <p data-reveal>« La constance bat l'intensité. »</p>
+  </section>
 
   <div class="wrap">
     <div class="proof" data-reveal style="border-top:0">
@@ -359,12 +376,20 @@ footer a:hover{color:var(--cream)}
       <div><b>Réponse en 24 h</b><span>Par une vraie personne : moi</span></div>
     </div>
 
-    <div class="dist">
-      <div><small>Nage</small><strong><b class="count" data-to="1.9" data-dec="1" style="font-weight:300">1,9</b><span> km</span></strong></div>
-      <div><small>Vélo</small><strong><b class="count" data-to="90" data-dec="0" style="font-weight:300">90</b><span> km</span></strong></div>
-      <div><small>Course</small><strong><b class="count" data-to="21.1" data-dec="1" style="font-weight:300">21,1</b><span> km</span></strong></div>
+    <div class="dist-wrap" id="dist">
+      <div class="stages" role="group" aria-label="Choisir une distance">
+        <button type="button" data-s="0" aria-pressed="false">Sprint</button>
+        <button type="button" data-s="1" aria-pressed="false">Olympique</button>
+        <button type="button" data-s="2" aria-pressed="false">70.3</button>
+        <button type="button" data-s="3" aria-pressed="true">Ironman</button>
+      </div>
+      <div class="dist">
+        <div><small>Nage</small><strong><b class="dv" data-k="0">3,8</b><span> km</span></strong></div>
+        <div><small>Vélo</small><strong><b class="dv" data-k="1">180</b><span> km</span></strong></div>
+        <div><small>Course</small><strong><b class="dv" data-k="2">42,2</b><span> km</span></strong></div>
+      </div>
+      <div class="dist-cap">Du premier sprint à l'Ironman complet · <span id="dist-name">Ironman</span></div>
     </div>
-    <div class="dist-cap">Du premier sprint au demi-Ironman</div>
 
   </div>
   <section class="band" aria-label="Manifeste">
@@ -422,7 +447,7 @@ footer a:hover{color:var(--cream)}
       <article class="yes">
         <div class="eyebrow">C'est pour toi si</div>
         <ul>
-          <li>Tu vises un sprint, un olympique ou un demi-Ironman et tu veux y arriver en forme, pas en miettes.</li>
+          <li>Tu vises un sprint, un 70.3 ou un Ironman complet et tu veux y arriver en forme, pas en miettes.</li>
           <li>Tu as un emploi, des études ou une famille, et ton horaire bouge.</li>
           <li>Tu veux comprendre pourquoi tu fais chaque séance.</li>
           <li>Tu veux progresser sans te blesser.</li>
@@ -673,8 +698,6 @@ if(window.gsap&&window.ScrollTrigger&&!reduce){
   gsap.from('.hl > span > span',{yPercent:115,duration:1.15,ease:'power4.out',stagger:.09,delay:.1});
   gsap.from('.hero .fade',{opacity:0,y:24,duration:1,ease:'power3.out',stagger:.12,delay:.55});
   gsap.utils.toArray('[data-reveal]').forEach(function(el){gsap.from(el,{y:46,opacity:0,duration:1.05,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});});
-  gsap.utils.toArray('.count').forEach(function(el){var to=parseFloat(el.dataset.to),dec=+el.dataset.dec,o={v:0};
-    gsap.to(o,{v:to,duration:1.6,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 90%',once:true},onUpdate:function(){el.textContent=o.v.toFixed(dec).replace('.',',');}});});
   gsap.from('.week .bar i',{width:0,duration:1.2,ease:'power2.out',stagger:.06,scrollTrigger:{trigger:'.week',start:'top 85%',once:true}});
   gsap.from('.week .day',{y:30,opacity:0,duration:.8,ease:'power3.out',stagger:.06,scrollTrigger:{trigger:'.week',start:'top 85%',once:true}});
   gsap.from('.cards .card',{y:50,opacity:0,duration:1,ease:'power3.out',stagger:.1,scrollTrigger:{trigger:'.cards',start:'top 85%',once:true},clearProps:'transform,opacity'});
@@ -708,6 +731,27 @@ else{
 /* finish-line loop behind the form, loaded only when near */
 var fv=document.getElementById('finvid');
 if(fv&&!reduce){new IntersectionObserver(function(es){if(es[0].isIntersecting){if(!fv.getAttribute('src')){fv.src=portrait()?'/media/finish-p.mp4':'/media/finish-l.mp4';}fv.play().catch(function(){});}else{fv.pause();}},{rootMargin:'300px'}).observe(fv);}
+})();
+</script>
+<script>
+(function(){
+var S=[['Sprint',[0.75,20,5]],['Olympique',[1.5,40,10]],['70.3',[1.9,90,21.1]],['Ironman',[3.8,180,42.2]]];
+var els=[].slice.call(document.querySelectorAll('.dv')),btns=[].slice.call(document.querySelectorAll('.stages button')),nm=document.getElementById('dist-name');
+var cur=[3.8,180,42.2],raf=0;
+function fmt(v,k){if(k===1)return String(Math.round(v));var d=v<1?2:1;var s=v.toFixed(d);if(k===2&&Math.abs(v-Math.round(v))<0.05)s=String(Math.round(v));return s.replace('.',',');}
+function go(i,dur){var from=cur.slice(),to=S[i][1],t0=performance.now();nm.textContent=S[i][0];
+  btns.forEach(function(b,j){b.setAttribute('aria-pressed',j===i?'true':'false');});
+  cancelAnimationFrame(raf);(function f(now){var u=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-u,3);
+    cur=from.map(function(a,k){return a+(to[k]-a)*e;});els.forEach(function(el,k){el.textContent=fmt(cur[k],k);});
+    if(u<1)raf=requestAnimationFrame(f);})(t0);}
+btns.forEach(function(b){b.addEventListener('click',function(){auto=false;go(+b.dataset.s,700);});});
+var auto=true;
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  cur=[0,0,0];els.forEach(function(el,k){el.textContent=fmt(0,k);});
+  var io=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;io.disconnect();
+    var i=0;go(0,900);var tm=setInterval(function(){if(!auto){clearInterval(tm);return;}i++;go(i,900);if(i>=3)clearInterval(tm);},1500);},{threshold:.4});
+  io.observe(document.getElementById('dist'));
+}
 })();
 </script>
 </body>
