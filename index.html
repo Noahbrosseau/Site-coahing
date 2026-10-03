@@ -345,6 +345,56 @@ footer a:hover{color:var(--cream)}
 .quiz-acts .again{background:none;border:0;font:600 14px var(--sans);color:#5C5446;text-decoration:underline;text-underline-offset:4px;cursor:pointer;min-height:44px}
 .disclaimer{flex-basis:100%;font-size:12px;color:var(--dim);max-width:720px}
 @media (max-width:420px){.brand{font-size:13px;letter-spacing:.16em;white-space:nowrap}.nav-links .nav-cta{padding:9px 14px;font-size:12px;letter-spacing:.08em}}
+
+/* ===== v8 : rythme clair / sombre =====
+   Charbon = tension, effort, émotion (accueil, problème, coach, consultation).
+   Crème   = clarté, réponses, chiffres (distances, méthode, offres, FAQ). */
+.light{--lt-ink:#161513;--lt-muted:#5C5446;--lt-dim:#857C6A;--lt-line:#D6CDB8;--lt-card:#EFE6D3;--lt-gold:#8C6A2A;
+  background:var(--cream);color:var(--lt-ink);box-shadow:0 0 0 100vmax var(--cream);clip-path:inset(0 -100vmax)}
+.faq.light{box-shadow:none;clip-path:none}
+.light .eyebrow,.light em{color:var(--lt-gold)}
+.light .muted,.light p.muted{color:var(--lt-muted)}
+.light h2,.light h3,.light h4{color:var(--lt-ink)}
+/* distances */
+.dist-wrap.light{margin-top:90px;padding-block:90px}
+.light .dist{border-color:var(--lt-line)}
+.light .dist div + div{border-color:var(--lt-line)}
+.light .dist small,.light .dist-cap{color:var(--lt-dim)}
+.light .dist strong{color:var(--lt-ink)}
+.light .dist strong span{color:var(--lt-muted)}
+.light .dist-cap span{color:var(--lt-gold)}
+.light .stages{border-color:var(--lt-line)}
+.light .stages button{color:var(--lt-muted)}
+.light .stages button[aria-pressed="true"]{background:var(--ink);color:var(--butter)}
+/* méthode */
+#methode.light{padding-block:130px;margin-top:0}
+.light .pillars{background:var(--lt-line);border-color:var(--lt-line)}
+.light .pillars article{background:var(--cream)}
+.light .pillars .n{color:var(--lt-gold)}
+.light .day{background:var(--lt-card);border-color:var(--lt-line);color:var(--lt-ink)}
+.light .day.rest{background:transparent}
+.light .day .d{color:var(--lt-dim)}
+.light .day .m{color:var(--lt-muted)}
+.light .day .bar{background:var(--lt-line)}
+.light .day.choice .or{color:var(--lt-gold)}
+.light .week button.day:hover{border-color:var(--lt-muted)}
+.light .week button.day.choice[aria-pressed="false"]{border-color:#B8913F}
+.light .week button.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.light .week button.day[aria-pressed="true"] .d,.light .week button.day[aria-pressed="true"] .m{color:var(--muted)}
+.light .week button.day[aria-pressed="true"] .or{color:var(--gold)}
+.light .detail{background:var(--lt-card);border-color:var(--lt-line)}
+.light .detail .meta{color:var(--lt-gold)}
+.light .detail p{color:var(--lt-ink)}
+.light .detail .why{color:var(--lt-muted)}
+.light .seg{border-color:var(--lt-line)}
+.light .seg button{color:var(--lt-muted)}
+.light .seg button[aria-pressed="true"]{background:var(--ink);color:var(--butter)}
+.light .legend{color:var(--lt-dim)}
+/* faq */
+.light .faq-list,.light details{border-color:var(--lt-line)}
+.light summary{color:var(--lt-ink)}
+.light summary::after{color:var(--lt-gold)}
+.light details p{color:var(--lt-muted)}
 </style>
 </head>
 <body>
@@ -400,7 +450,7 @@ footer a:hover{color:var(--cream)}
       <div><b>Réponse en 24 h</b><span>Par une vraie personne : moi</span></div>
     </div>
 
-    <div class="dist-wrap" id="dist">
+    <div class="dist-wrap light" id="dist">
       <div class="stages" role="group" aria-label="Choisir une distance">
         <button type="button" data-s="0" aria-pressed="false">Sprint</button>
         <button type="button" data-s="1" aria-pressed="false">Olympique</button>
@@ -432,7 +482,7 @@ footer a:hover{color:var(--cream)}
   </section>
   <div class="wrap">
 
-    <section id="methode" style="padding-top:130px">
+    <section id="methode" class="light">
       <div class="m-head">
         <div style="display:flex;flex-direction:column;gap:18px">
           <div class="eyebrow">La méthode</div>
@@ -584,7 +634,7 @@ footer a:hover{color:var(--cream)}
     </div>
   </section>
 
-  <section id="faq" class="faq">
+  <section id="faq" class="faq light">
     <div class="wrap">
       <div style="display:flex;flex-direction:column;gap:18px">
         <div class="eyebrow">Questions</div>
